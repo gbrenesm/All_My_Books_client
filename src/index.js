@@ -3,11 +3,12 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
 import Router from "./router"
+import CtxProvider from "./context"
 
 ReactDOM.render(
-  <React.StrictMode>
+  <CtxProvider>
     <Router />
-  </React.StrictMode>,
+  </CtxProvider>,
   document.getElementById('root')
 );
 

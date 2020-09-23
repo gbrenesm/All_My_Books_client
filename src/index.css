@@ -1,13 +1,49 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+/*font-family: 'Baloo Tammudu 2', cursive;
+    font-family: 'Grandstander', cursive;
+    font-family: 'Monda', sans-serif;
+    font-family: 'Nunito Sans', sans-serif; 
+    blue: rgba(41, 120, 160, 1)*/
+
+@import url('https://fonts.googleapis.com/css2?family=Baloo+Tammudu+2:wght@400;700&family=Grandstander:ital,wght@0,100;0,400;0,600;0,700;1,100;1,400;1,600;1,700&family=Monda:wght@400;700&family=Nunito+Sans:ital,wght@0,200;0,400;0,700;1,200;1,400;1,700&display=swap');
+
+:root{
+  --blue: rgba(41, 120, 160, 1)
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+body {
+  margin: 0;
+  font-family: 'Nunito Sans', sans-serif;
+}
+
+/* Home page */
+
+.homepage{
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+
+.homeblue{
+  background-color: var(--blue);
+  width: 40%;
+  height: 100vh;
+}
+
+.homeblue h1{
+  font: 90px 'Baloo Tammudu 2', cursive;
+  color: white;
+  margin: 0;
+  line-height: 1;
+  padding: 6vh 10vw 0;
+}
+
+.homeblue h2 {
+  color: white;
+  text-align: center;
+  padding-bottom: 4vh;
+}
+
+.homepage img{
+  width: 100%;
+  height: 50%;
 }

@@ -1,8 +1,9 @@
 import React from "react"
 import { BrowserRouter, Route, Switch } from "react-router-dom"
+import Home from "./pages/Home"
 
 
-const Home = () => <h1>Home</h1>
+//const Home = () => <h1>Home</h1>
 const Login = () => <h1>Login</h1>
 const Signup = () => <h1>Signup</h1>
 const UserHome = () => <h1>User Home</h1>
