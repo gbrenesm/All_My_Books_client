@@ -19,7 +19,7 @@ const Router = () => {
         <Layout>
           <Route component={UserHome} path="/userhome" exact/>
           <Route component={NewBook} path="/newBook" exact/>
-          <Route component={BookDetail} path="/bookdetail" exact/>
+          <Route component={BookDetail} path="/detialbook/:bookId" exact/>
           <Route component={ConfigProfile} path="/configprofile" exact/>
         </Layout>
       </Switch>

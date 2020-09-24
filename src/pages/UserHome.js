@@ -1,4 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react'
+import { Link } from "react-router-dom"
 import { Context } from "../context"
 import { getAllUsersBooks } from "../services/books"
 
@@ -26,10 +27,16 @@ function UserHome() {
         </ul>
       </div>
       <div>
-        <p>Usuario: {user?.email}</p>
         {books?.map((book, i)=> (
-          <div>
-            <p>{book.title}</p>
+          <div className="bookcard">
+            <img src={book.cover}/>
+            <div>
+              <h4>{book.title}</h4>
+              <p>{book.author}</p>
+            </div>
+            <div>
+              <button><Link to={`/detialbook/${book._id}`}>Detalles</Link></button>
+            </div>
           </div>
         ))}
       </div>
