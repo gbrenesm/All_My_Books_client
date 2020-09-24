@@ -8,7 +8,7 @@ export default function CtxProvider({ children }){
 
   async function getSession(){
     const { user } = await getCurrentUser()
-    console.log(user)
+    //console.log(user)
     if (user?.email){
       loginUser(user)
     }
@@ -16,14 +16,13 @@ export default function CtxProvider({ children }){
 
   useEffect(() => {
     getSession()
-    console.log("Hola")
   },[])
 
   function loginUser(user){
     setUser(user)
   }
 
-  function logout(){
+  function logoutUser(){
     setUser(null)
   }
 
@@ -31,7 +30,7 @@ export default function CtxProvider({ children }){
     <Context.Provider value={{
       user,
       loginUser,
-      logout
+      logoutUser
     }}>
       {children}
     </Context.Provider>
