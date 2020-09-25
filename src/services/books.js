@@ -18,8 +18,8 @@ export const getBookDetail = async bookId => {
   return book
 }
 
-export const updateBook = async bookData => {
-  const { data: book } = await service.put("/updatebook/:bookId", bookData)
+export const updateBook = async (bookId, bookData) => {
+  const { data: book } = await service.put(`/updatebook/${bookId}`, bookData)
   return book
 }
 

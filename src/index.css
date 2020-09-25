@@ -267,8 +267,18 @@ ul li ul:hover {
   padding-top: 60px
 }
 
+.bookdetail img{
+  width: 300px;
+}
+
 /* New book */
 
 .newbook{
+  padding-top: 60px
+}
+
+/* Edit book */
+
+.editbook{
   padding-top: 60px
 }

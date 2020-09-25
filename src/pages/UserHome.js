@@ -1,12 +1,10 @@
-import React, { useContext, useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link } from "react-router-dom"
-import { Context } from "../context"
 import { getAllUsersBooks } from "../services/books"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faBook } from "@fortawesome/free-solid-svg-icons"
 
 function UserHome() {
-  const { user } = useContext(Context)
   const [books, setBooks] = useState(null)
   
   async function fetchBooks() {
@@ -34,7 +32,7 @@ function UserHome() {
         <div>
           {books?.map((book, i)=> (
             <div className="bookcard">
-              <img src={book.cover}/>
+              <img src={book.cover} alt="Book cover"/>
               <div>
                 <h4>{book.title}</h4>
                 <p>{book.author}</p>

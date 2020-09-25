@@ -3,8 +3,8 @@ import axios from "axios"
 const baseURL = "http://localhost:3000/api"
 const service = axios.create({ baseURL, withCredentials: true })
 
-export const createNote = async noteData => {
-  await service.post("", noteData)
+export const createNote = async (bookId, noteData) => {
+  await service.post(`/note/${bookId}`, noteData)
   return true
 }
 
