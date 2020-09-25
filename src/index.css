@@ -1,4 +1,4 @@
-/*font-family: 'Baloo Tammudu 2', cursive;
+  /*font-family: 'Baloo Tammudu 2', cursive;
     font-family: 'Grandstander', cursive;
     font-family: 'Monda', sans-serif;
     font-family: 'Nunito Sans', sans-serif; 
@@ -15,6 +15,42 @@ body {
   margin: 0;
   font-family: 'Nunito Sans', sans-serif;
 }
+
+
+/* Loder */
+.loader{text-align: center;}
+.loader span{display: inline-block;vertical-align: middle;width: 10px;height: 10px;margin: 50px auto;background: #1197B8;border-radius: 50px;-webkit-animation: loader 0.9s infinite alternate;-moz-animation: loader 0.9s infinite alternate;}
+.loader span:nth-of-type(2){background: #1197B8;-webkit-animation-delay: 0.3s;-moz-animation-delay: 0.3s;}
+.loader span:nth-of-type(3){background: #1197B8;-webkit-animation-delay: 0.6s;-moz-animation-delay: 0.6s;}
+@-webkit-keyframes loader{
+0%{
+	width: 10px;
+	height: 10px;
+	opacity: 0.9;
+	-webkit-transform: translateY(0);
+}
+100%{
+    width: 24px;
+    height: 24px;
+    opacity: 0.1;
+    -webkit-transform: translateY(-21px);
+}
+}
+@-moz-keyframes loader {
+0%{
+    width: 10px;
+    height: 10px;
+    opacity: 0.9;
+    -moz-transform: translateY(0);
+}
+100%{
+    width: 24px;
+    height: 24px;
+    opacity: 0.1;
+    -moz-transform: translateY(-21px);
+}
+}
+
 
 /* Home page */
 
@@ -121,7 +157,6 @@ ul li ul:hover {
   padding-top: 60px;
   display: flex;
   justify-content: space-between;
-  height: 100%;
 }
 
 .userhome>div:nth-child(1){
@@ -141,9 +176,13 @@ ul li ul:hover {
 
 .userhome>div:nth-child(2){
   padding: 4vw;
-  display: flex;
   width: 80%;
+}
+
+.userhome>div:nth-child(2)>div:nth-child(2){
+  display: flex;
   flex-wrap: wrap;
+
 }
 
 .bookcard{
@@ -151,7 +190,8 @@ ul li ul:hover {
   border-radius: 10px;
   overflow: hidden;
   margin: 1vw;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15)
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+  height: 450px;
 }
 
 .bookcard img{
@@ -170,7 +210,7 @@ ul li ul:hover {
   padding: 8px;
   width: 90%;
   position: absolute;
-  bottom: 15px;
+  bottom: 10px;
   border-radius: 15px;
   border: none;
   background-color: var(--blue);
@@ -182,4 +222,17 @@ ul li ul:hover {
   margin: auto;
   position: relative;
   height: 45px;
+}
+
+
+/* Book's details */
+
+.bookdetail{
+  padding-top: 60px
+}
+
+/* New book */
+
+.newbook{
+  padding-top: 60px
 }

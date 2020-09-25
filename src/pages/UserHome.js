@@ -10,7 +10,6 @@ function UserHome() {
   async function fetchBooks() {
     const userbooks = await getAllUsersBooks()
     setBooks(userbooks.user.books)
-    console.log(userbooks.user.books)
   }
 
   useEffect(() => {
@@ -27,18 +26,24 @@ function UserHome() {
         </ul>
       </div>
       <div>
-        {books?.map((book, i)=> (
-          <div className="bookcard">
-            <img src={book.cover}/>
-            <div>
-              <h4>{book.title}</h4>
-              <p>{book.author}</p>
+        <div>
+          <Link to="/newbook">Nuevo libro</Link>
+        </div>
+        <div>
+          {books?.map((book, i)=> (
+            <div className="bookcard">
+              <img src={book.cover}/>
+              <div>
+                <h4>{book.title}</h4>
+                <p>{book.author}</p>
+              </div>
+              <div>
+                <button><Link to={`/detialbook/${book._id}`}>Detalles</Link></button>
+              </div>
             </div>
-            <div>
-              <button><Link to={`/detialbook/${book._id}`}>Detalles</Link></button>
-            </div>
-          </div>
-        ))}
+          ))}
+          {!books && <p>Aún no tienes libros</p>}
+        </div>
       </div>
     </div>
   )
