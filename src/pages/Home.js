@@ -1,6 +1,8 @@
 import React, { useState } from "react"
 import useInput from "../hooks/useInput"
 import { signup, login } from "../services/auth"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { fab } from "@fortawesome/free-brands-svg-icons"
 
 function Home ({ history }) {
   const usernameInput = useInput("")
@@ -41,7 +43,7 @@ function Home ({ history }) {
 
   return(
     <div className="homepage">
-      <div className="homeblue">
+      <div>
         <h1>All My Books</h1>
         <h2>El lugar para ordenar todos tus libros</h2>
         <img src="https://res.cloudinary.com/dxncdwsau/image/upload/v1600883938/All_My_Books/Book_shelf_warm_colors_omdjq1.jpg" alt="Bookshelf by colors"/>
@@ -50,13 +52,20 @@ function Home ({ history }) {
       <div>
         <h2>Crea una cuenta</h2>
           <form onSubmit={submitFormSignup}>
-            <label>Nombre de usuario</label>
+            <label>Nombre de usuario: </label>
+            <br/>
             <input required type="text" name="username" id="username" {...usernameInput}/>
-            <label>Email</label>
+            <br/>
+            <label>Email:</label>
+            <br/>
             <input required type="text" name="email" id="email" {...emailInput}/>
-            <label>Contraseña</label>
+            <br/>
+            <label>Contraseña:</label>
+            <br/>
             <input required type="text" name="password" id="password" {...passwordInput}/>
+            <br/>
             <button type="submit">Crea tu cuenta</button>
+            <FontAwesomeIcon icon={['fab', 'google']} />
           </form>
         {error && <p>{errorMesagge}</p>}
       <button onClick={changeLogin}>Inicia sesión</button>

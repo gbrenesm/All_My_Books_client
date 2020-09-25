@@ -1,14 +1,16 @@
-  /*font-family: 'Baloo Tammudu 2', cursive;
+  /*Títulos: font-family: 'Baloo Tammudu 2', cursive;
+    Body: font-family: 'Nunito Sans', sans-serif; 
     font-family: 'Grandstander', cursive;
     font-family: 'Monda', sans-serif;
-    font-family: 'Nunito Sans', sans-serif; 
-    blue: rgba(41, 120, 160, 1)*/
+    blue: rgba(41, 120, 160, 1)
+    green: rgb(168, 198, 134) */
 
 @import url('https://fonts.googleapis.com/css2?family=Baloo+Tammudu+2:wght@400;700&family=Grandstander:ital,wght@0,100;0,400;0,600;0,700;1,100;1,400;1,600;1,700&family=Monda:wght@400;700&family=Nunito+Sans:ital,wght@0,200;0,400;0,700;1,200;1,400;1,700&display=swap');
 
 :root{
   --blue: rgba(41, 120, 160, 1);
-  --bluelight: rgba(41, 120, 160, .6)
+  --bluelight: rgba(41, 120, 160, .6);
+  --green: rgba(168, 198, 134, 1)
 }
 
 body {
@@ -60,13 +62,13 @@ body {
   height: 100%;
 }
 
-.homeblue{
-  background-color: var(--blue);
+.homepage>:nth-child(1){
+  background-color: var(--green);
   width: 40%;
   height: 100vh;
 }
 
-.homeblue h1{
+.homepage>:nth-child(1) h1{
   font: 90px 'Baloo Tammudu 2', cursive;
   color: white;
   margin: 0;
@@ -74,7 +76,7 @@ body {
   padding: 6vh 10vw 0;
 }
 
-.homeblue h2 {
+.homepage>:nth-child(1) h2 {
   color: white;
   text-align: center;
   padding-bottom: 4vh;
@@ -85,10 +87,44 @@ body {
   height: 50%;
 }
 
-button{
-  width: 20vw;
-  height: 20wh;
+
+.homepage>:nth-child(2){
+  border: 10px var(--green) solid;
+  border-radius: 15px;
+  padding: 4vw;
+  width: 23%;
+  height: 60vh;
+  margin: auto;
 }
+
+.homepage>:nth-child(2) h2{
+  font: 40px 'Baloo Tammudu 2', cursive;
+  line-height: 1;
+  margin: 0 0 2vh;
+}
+
+.homepage label{
+  font-size: 23px;
+}
+
+.homepage input,
+.homepage button{
+  border-radius: 8px;
+  border: 2px solid var(--green);
+  width: 100%;
+  height: 23px;
+  margin: 2% 0 5%;
+}
+
+.homepage button{
+  background-color: var(--green);
+  color: white;
+  padding: 10px;
+  height: auto;
+  font-size: 18px;
+}
+
+
 
 /* Layout navbar */
 

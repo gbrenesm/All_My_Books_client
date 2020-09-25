@@ -2,6 +2,8 @@ import React, { useContext, useState, useEffect } from 'react'
 import { Link } from "react-router-dom"
 import { Context } from "../context"
 import { getAllUsersBooks } from "../services/books"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faBook } from "@fortawesome/free-solid-svg-icons"
 
 function UserHome() {
   const { user } = useContext(Context)
@@ -22,7 +24,7 @@ function UserHome() {
       <div>
         <h3>Estantes</h3>
         <ul>
-          <li><i class="fas fa-book"></i>Todos tus libros</li>
+          <li><FontAwesomeIcon icon={faBook}/>Todos tus libros</li>
         </ul>
       </div>
       <div>
