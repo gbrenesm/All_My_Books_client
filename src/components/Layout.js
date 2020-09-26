@@ -1,19 +1,31 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Context } from "../context"
 import { Link } from "react-router-dom"
-import { logout } from "../services/auth"
+import { logout, getCurrentUser } from "../services/auth"
 import { useHistory } from "react-router-dom"
+import Loader from "../components/Loader"
 
 
 function Layout({ children }) {
-  const { user, logoutUser } = useContext(Context)
+  const { user, logoutUser} = useContext(Context)
+  const [profilePic, setProfilePic] = useState(null)
+  
   const history = useHistory()
 
+
+  const currentUser = async () => {
+    getCurrentUser()
+    console.log(user)
+  }
   const logoutClick = async () =>{
     await logout()
     logoutUser()
     history.push("/")
   }
+
+  useEffect(()=>{
+    currentUser()
+  }, [])
 
   return (
     <div>
@@ -24,11 +36,10 @@ function Layout({ children }) {
         <div>
           <ul>
             <li>Algo</li>
-            <li>Otra cosa</li>
-            <li><img src={user?.profilePhoto} alt="User"/>
+            <li><img src={user? user.profilePhoto : <Loader></Loader>} alt="User"/>
               <ul>
                 <li><Link to="/configprofile">Configuración</Link></li>
-                <li onClick={logoutClick}>Cierra sesión</li>
+                <li onClick={logoutClick}><Link>Cierra sesión</Link></li>
               </ul>
             </li>
             

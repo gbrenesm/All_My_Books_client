@@ -23,7 +23,6 @@ function BookDetail({ match: { params: { bookId } }}) {
     setBook(detailbook.book)
     setAllNotes(detailbook.book.notes)
     setAllQuotes(detailbook.book.quotes)
-    console.log(detailbook.book.quotes)
   }
 
   async function eliminateBook(){
@@ -67,22 +66,23 @@ function BookDetail({ match: { params: { bookId } }}) {
 
   return (
     <div className="bookdetail">
-      <h1>Detalles de libro</h1>
         {book? 
           <>
           <div>
-            <div>
-              <img src={book.cover} alt="Book cover"/>
-              <button><Link to={`/detialbook/${book._id}/update`}>Editar libro</Link></button>
-              <button onClick={eliminateBook}>Eliminar libro</button>
-            </div>
-            <div>
-              <h2>{book.title}</h2>
-              <p>{book.author}</p>
-              <p>{book.publisher}</p>
-              <p>{book.edition}</p>
-              <p>{book.published}</p>
-            </div>
+              <div>
+                <img src={book.cover} alt="Book cover"/>
+                <div>
+                  <button><Link to={`/detialbook/${book._id}/update`}>Editar libro</Link></button>
+                  <button onClick={eliminateBook}>Eliminar libro</button>
+                </div>
+              </div>
+              <div>
+                <h2>{book.title}</h2>
+                <h3>{book.author}</h3>
+                <p><b>Editorial: </b>{book.publisher}</p>
+                <p><b>Edición: </b>{book.edition}</p>
+                <p>{book.published}</p>
+              </div>
           </div>
           <div>
             <button onClick={showNotes}>Notas</button>

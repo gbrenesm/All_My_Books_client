@@ -2,7 +2,8 @@ import React, { useState } from "react"
 import useInput from "../hooks/useInput"
 import { signup, login } from "../services/auth"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { fab } from "@fortawesome/free-brands-svg-icons"
+import { faGoogle, faFacebookF } from "@fortawesome/free-brands-svg-icons"
+import { Link } from "react-router-dom"
 
 function Home ({ history }) {
   const usernameInput = useInput("")
@@ -20,15 +21,19 @@ function Home ({ history }) {
     await signup({username, email, password}).catch(err => {
       console.dir(err.response.data.message)
       notificationError(err.response.data.message)})
-    if (!error) setsignupForm(false)
+    if (error) setsignupForm(false)
   }
 
   async function submitFormLogin(e){
     e.preventDefault()
     const email = emailInput.value
     const password = passwordInput.value
-    await login({email, password})
-    history.push("/userhome")
+    await login({email, password}).catch(err => {
+      console.dir(err.response.data.message)
+      notificationError(err.response.data.message)
+    })
+    if (error) console.log("Hay un error")
+    else {history.push("/userhome")}
   }
 
   function changeLogin(){
@@ -62,13 +67,19 @@ function Home ({ history }) {
             <br/>
             <label>Contraseña:</label>
             <br/>
-            <input required type="text" name="password" id="password" {...passwordInput}/>
+            <input required type="password" name="password" id="password" {...passwordInput}/>
             <br/>
+          {error && <p>{errorMesagge}</p>}
             <button type="submit">Crea tu cuenta</button>
-            <FontAwesomeIcon icon={['fab', 'google']} />
           </form>
-        {error && <p>{errorMesagge}</p>}
-      <button onClick={changeLogin}>Inicia sesión</button>
+          <div>
+            <Link><FontAwesomeIcon icon={faGoogle} /> &nbsp;Google</Link>
+            <Link><FontAwesomeIcon icon={faFacebookF} /> Facebook</Link>
+          </div>
+          <hr/>
+          <div className="signupbtn">
+            <p>¿Ya tienes cuenta?</p> <button onClick={changeLogin}>Inicia sesión</button>
+          </div>
       </div>}
       {!signupForm && 
       <div>
@@ -77,10 +88,18 @@ function Home ({ history }) {
             <label>Email</label>
             <input required type="text" name="email" id="email" {...emailInput}/>
             <label>Contraseña</label>
-            <input required type="text" name="password" id="password" {...passwordInput}/>
+            <input required type="password" name="password" id="password" {...passwordInput}/>
             <button type="submit">Inicia sesión</button>
+            {error && <p>{errorMesagge}</p>}
           </form>
-      <button onClick={changeLogin}>Crea una cuenta</button>
+          <div>
+            <Link><FontAwesomeIcon icon={faGoogle} /> &nbsp;Google</Link>
+            <Link><FontAwesomeIcon icon={faFacebookF} /> Facebook</Link>
+          </div>
+          <hr/>
+          <div>
+            <button onClick={changeLogin}>Crea una cuenta</button>
+          </div>
       </div>}
     </div>
   )

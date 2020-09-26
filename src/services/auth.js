@@ -11,11 +11,13 @@ export const signup = async user => {
 
 export const login = async userData => {
   const { data: user } = await service.post("/login", userData)
+  //console.log(user)
   return user
 }
 
 export const getCurrentUser = async () => {
   const { data: user } = await service.get("/currentuser")
+  //console.log(user)
   return user
 }
 

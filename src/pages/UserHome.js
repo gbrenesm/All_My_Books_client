@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from "react-router-dom"
 import { getAllUsersBooks } from "../services/books"
+import Loader from "../components/Loader"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faBook } from "@fortawesome/free-solid-svg-icons"
 
@@ -30,8 +31,8 @@ function UserHome() {
           <Link to="/newbook">Nuevo libro</Link>
         </div>
         <div>
-          {books?.map((book, i)=> (
-            <div className="bookcard">
+          {books? books.map((book, i)=> (
+            <div key={i} className="bookcard">
               <img src={book.cover} alt="Book cover"/>
               <div>
                 <h4>{book.title}</h4>
@@ -41,7 +42,7 @@ function UserHome() {
                 <button><Link to={`/detialbook/${book._id}`}>Detalles</Link></button>
               </div>
             </div>
-          ))}
+          )) : <Loader></Loader>}
           {!books && <p>Aún no tienes libros</p>}
         </div>
       </div>
