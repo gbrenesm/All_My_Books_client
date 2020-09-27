@@ -7,20 +7,27 @@ import { faBook } from "@fortawesome/free-solid-svg-icons"
 import { Context } from "../context"
 
 
-function UserHome() {
+function UserHome({ history }) {
   const [books, setBooks] = useState(null)
-  const { user } = useContext(Context)
+  const [changePage, setChangePage] = useState(false)
+  const [page, setPage] = useState(1)
 
-  
+  function pagintationMore(){
+    setPage(2)
+    setChangePage(true)
+    console.log(page)
+    history.push(`/userhome/${page}`)
+  }
   async function fetchBooks() {
-    const userbooks = await getAllUsersBooks()
+    const userbooks = await getAllUsersBooks(page)
     setBooks(userbooks.user.books)
   }
   
 
   useEffect(() => {
     fetchBooks()
-  }, [])
+    setChangePage(false)
+  }, [changePage])
 
 
   return (
@@ -28,7 +35,7 @@ function UserHome() {
       <div>
         <h3>Estantes</h3>
         <ul>
-          <li><FontAwesomeIcon icon={faBook}/>Todos tus libros</li>
+          <li><FontAwesomeIcon icon={faBook}/>&nbsp;Todos tus libros</li>
         </ul>
       </div>
       <div>
@@ -47,9 +54,11 @@ function UserHome() {
                 <button><Link to={`/detialbook/${book._id}`}>Detalles</Link></button>
               </div>
             </div>
-          )) : <Loader></Loader>}
+          )) 
+          : <Loader></Loader>}
           {!books && <p>Aún no tienes libros</p>}
         </div>
+          {books && <button onClick={pagintationMore}>Ver más libros</button>}
       </div>
     </div>
   )

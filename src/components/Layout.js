@@ -30,7 +30,7 @@ async function fetchUser(){
     <div>
       <nav>
         <div>
-          <p><img src="https://res.cloudinary.com/dxncdwsau/image/upload/v1600963193/All_My_Books/%C3%8Dcono_de_libros_blanco_hajncl.png" alt="Books icon"/>&nbsp; <Link to="/userhome">All My Books</Link></p>
+          <p><img src="https://res.cloudinary.com/dxncdwsau/image/upload/v1600963193/All_My_Books/%C3%8Dcono_de_libros_blanco_hajncl.png" alt="Books icon"/>&nbsp; <Link to="/userhome/1">All My Books</Link></p>
         </div>
         <div>
           <ul>

@@ -11,6 +11,7 @@
   --blue: rgba(41, 120, 160, 1);
   --bluelight: rgba(41, 120, 160, .6);
   --green: rgba(168, 198, 134, 1);
+  --greenlight: rgba(168, 198, 134, .6);
   --greendark: #588157;
   --red: rgb(167, 29, 49);
 }
@@ -231,7 +232,7 @@ ul li:hover > ul,
 ul li ul:hover {
   visibility: visible;
   display: block;
-  background-color: var(--blue);
+  background-color: var(--green);
   border-radius: 2px;
 }
 
@@ -244,12 +245,11 @@ ul li ul:hover {
 }
 
 .userhome>div:nth-child(1){
-  background-color: var(--bluelight);
+  background-color: var(--greenlight);
   padding: 4vw;
   width: 15%;
   color: white;
-  height: 100%;
-
+  min-height: 50vh;
 }
 
 .userhome>div:nth-child(1) li{
@@ -282,7 +282,7 @@ ul li ul:hover {
   width: 100%;
   height: 30vh;
   object-fit: cover;
-  border-bottom: 10px var(--blue) solid;
+  border-bottom: 10px var(--green) solid;
 }
 
 .bookcard div:nth-child(2){
@@ -297,8 +297,12 @@ ul li ul:hover {
   bottom: 10px;
   border-radius: 15px;
   border: none;
-  background-color: var(--blue);
+  background-color: var(--green);
+}
+
+.bookcard a{
   color: white;
+  text-decoration: none;
 }
 
 .bookcard div:nth-child(3){

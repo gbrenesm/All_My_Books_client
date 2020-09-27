@@ -33,7 +33,7 @@ function Home ({ history }) {
       notificationError(err.response.data.message)
     })
     if (error) console.log("Hay un error")
-    else {history.push("/userhome")}
+    else {history.push("/userhome/1")}
   }
 
   function changeLogin(){

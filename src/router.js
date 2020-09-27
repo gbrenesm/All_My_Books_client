@@ -20,7 +20,7 @@ const Router = () => {
       <Switch>
         <Route component={Home} path="/" exact/>
         <Layout>
-          <Route component={UserHome} path="/userhome" exact/>
+          <Route component={UserHome} path="/userhome/:page" exact/>
           <Route component={NewBook} path="/newbook" exact/>
           <Route component={BookDetail} path="/detialbook/:bookId" exact/>
           <Route component={ConfigProfile} path="/configprofile" exact/>

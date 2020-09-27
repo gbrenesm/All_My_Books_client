@@ -8,8 +8,8 @@ export const createBook = async bookData => {
   return true
 }
 
-export const getAllUsersBooks = async () => {
-  const { data: books } = await service.get("/userbooks")
+export const getAllUsersBooks = async page => {
+  const { data: books } = await service.get(`/userbooks/${page}`)
   return books
 }
 
