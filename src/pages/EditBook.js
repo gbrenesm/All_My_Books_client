@@ -1,13 +1,28 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import useInput from "../hooks/useInput"
 import axios from "axios"
 import { updateBook } from '../services/books'
 import { useHistory } from "react-router-dom"
+import { getBookDetail } from "../services/books"
 
 function EditBook({ match: { params: { bookId } }}) {
-  const titleInput = useInput("")
-  const authorInput = useInput("")
-  const publisherInput = useInput("")
+  const [bookData, setBookData] = useState(null)
+  
+  useEffect(() => {
+    fetchBook()
+  }, [])
+  
+  async function fetchBook() {
+    const detailbook = await getBookDetail(bookId)
+    setBookData(detailbook.book)
+    setTitle(detailbook.authorFirstName)
+  }
+
+
+  const [title, setTitle] = useState("H")
+  const authorFirstNameInput = useInput(bookData?.authorFirstName)
+  const authorLastNameInput = useInput("")
+  const publisherInput = useInput(bookData?.publisher)
   const publishedInput = useInput("")
   const editionInput = useInput("")
   const ISBNInput = useInput("")
@@ -31,8 +46,9 @@ function EditBook({ match: { params: { bookId } }}) {
   async function submitForm(e){
     e.preventDefault()
     await updateBook(bookId, {
-      title: titleInput.value,
-      author: authorInput.value,
+      title,
+      authorFirstName: authorFirstNameInput.value,
+      authorLastName: authorLastNameInput.value,
       publisher: publisherInput.value,
       published: publishedInput.value,
       edition: editionInput.value,
@@ -48,13 +64,17 @@ function EditBook({ match: { params: { bookId } }}) {
 
   return (
     <div className="editbook">
-      <h2>Crea un nuevo libro</h2>
+
+      <h2>Edita</h2>
       <form onSubmit={submitForm}>
         <label>Título</label>
-        <input required type="text" name="title" id="title" {...titleInput}/>
+        <input required type="text" name="title" id="title" value={title} onChange={e => setTitle(e.target.value)}/>
         <br/>
-        <label>Autor</label>
-        <input type="text" name="author" id="author" {...authorInput}/>
+        <label>Nombre del autor(a)</label>
+        <input type="text" name="authorFirstName" id="authorFirstName" {...authorFirstNameInput}/>
+        <br/>
+        <label>Apellido del autor(a)</label>
+        <input type="text" name="authorLastName" id="authorLastName" {...authorLastNameInput}/>
         <br/>
         <label>Editorial</label>
         <input type="text" name="publisher" id="publisher" {...publisherInput}/>
@@ -79,8 +99,8 @@ function EditBook({ match: { params: { bookId } }}) {
         <input type="text" name="description" id="description" {...descriptionInput}/>
         <br/>
         <label>Formato</label>
-        <select name="format" {...formatInput}>
-          <option>Selecciona</option>
+        <select required name="format" {...formatInput}>
+          <option value="" selected>Selecciona una opción</option>
           <option value="TAPA BLANDA">Tapa blanda</option>
           <option value="TAPA DURA">Tapa dura</option>
           <option value="EBOOK ">Ebook</option>

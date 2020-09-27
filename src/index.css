@@ -1,6 +1,5 @@
   /*Títulos: font-family: 'Baloo Tammudu 2', cursive;
     Body: font-family: 'Nunito Sans', sans-serif; 
-    font-family: 'Grandstander', cursive;
     font-family: 'Monda', sans-serif;
     blue: rgba(41, 120, 160, 1)
     green: rgb(168, 198, 134) 
@@ -12,6 +11,7 @@
   --blue: rgba(41, 120, 160, 1);
   --bluelight: rgba(41, 120, 160, .6);
   --green: rgba(168, 198, 134, 1);
+  --greendark: #588157;
   --red: rgb(167, 29, 49);
 }
 
@@ -315,36 +315,48 @@ ul li ul:hover {
   padding-top: 110px
 }
 
-.bookdetail>div:nth-child(1){
+.bookDetailCard{
   width: 90%;
   margin: auto;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
   border-radius: 15px;
   display: flex;
-  height: 75vh;
+  height: 70vh;
 }
 
 /* Book's details left side*/
-.bookdetail>div:nth-child(1)>div:nth-child(1){
+
+.bookDetailCard>div:nth-child(1){
   width: 25%;
   padding: 1% 3% 0;
 }
 
-.bookdetail img{
+.bookDetailCard>div:nth-child(2){
+  width: 35%;
+
+}
+
+.bookDetailCard>div:nth-child(3){
+  padding: 15px;
+  width: 35%;
+  text-align: justify;
+}
+
+.bookDetailCard img{
   width: 100%;
-  height: 65vh;
+  height: 58vh;
   object-fit: cover;
   border-radius: 15px;
+  margin-bottom: 10px;
 }
 
-.bookdetail>div:nth-child(1)>div:nth-child(1)>div:nth-child(2){
+.bookDetailCard>div:nth-child(1)>div:nth-child(2){
   display: flex;
   justify-content: space-around;
-  margin-top: 1vh;
 }
 
-.bookdetail div:nth-child(1)>div:nth-child(1) button{
-  background-color: var(--green);
+.bookDetailCard div:nth-child(1) button{
+  background-color: var(--greendark);
   border: none;
   border-radius: 15px;
   padding: 10px;
@@ -352,39 +364,131 @@ ul li ul:hover {
   margin: 0 15px;
 }
 
-.bookdetail div:nth-child(1)>div:nth-child(1) button:nth-child(2){
+.bookDetailCard div:nth-child(1) button:nth-child(2){
   background-color:var(--red);
 }
 
-.bookdetail div:nth-child(1)>div:nth-child(1) a{
+.bookDetailCard div:nth-child(1) a{
   text-decoration: none;
   color: white
 }
 
 /* Book's details right side*/
 
-.bookdetail h2{
+.bookDetailCard h2{
   font: 35px 'Baloo Tammudu 2', cursive;
   margin: 0;
-  height: 58px;
+  height: 60px;
+  margin-top: 10px;
+  line-height: 1;
 }
 
-.bookdetail h3{
+.bookDetailCard h3{
   margin: 0;
   font-size: 25px;
 }
 
-.bookdetail>div:nth-child(1) p{
+.bookDetailCard p{
   font-size: 20px;
 }
 
-  /*Títulos: font-family: 'Baloo Tammudu 2', cursive;
-    Body: font-family: 'Nunito Sans', sans-serif; 
-    font-family: 'Monda', sans-serif;
-    blue: rgba(41, 120, 160, 1)
-    green: rgb(168, 198, 134) 
-    red: rgb(167, 29, 49)*
+/* Notes book's card */
+.notesbook{
+  padding: 3vw;
+}
 
+.notesbook button{
+  background-color: none;
+  border: none
+}
+
+.notesbook a{
+  background-color: var(--green);
+  padding: 10px;
+  margin: 2px;
+  border-radius: 10px 10px 0 0;
+  color: white;
+  text-decoration: none;
+}
+
+.notescards{
+  margin: 10px 2px;
+  border: solid var(--green) 5px;
+  border-radius: 0 15px 15px 15px;
+  min-height: 10vh;
+  padding: 20px;
+}
+
+.onenotecard{
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+  border-radius: 15px;
+  padding: 10px 25px;
+  margin-top: 10px;
+  text-align: justify;
+}
+
+.onenotecard button{
+  background-color:var(--red);
+  color: white;
+  padding: 10px;
+  border-radius: 15px;
+  width: 10vw;
+  margin-left: 70vw;
+}
+
+/* Format for new note and quote */
+
+.newnoteformat button{
+  background-color:var(--greendark);
+  color: white;
+  padding: 10px;
+  border-radius: 15px;
+  width: 15vw;
+}
+
+.newnoteformat form{
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  margin-top: 20px;
+}
+
+.newnoteformat textarea{
+  width: 95%;
+  font: 16px 'Nunito Sans', sans-serif;
+  margin: 10px 0;
+}
+
+.newnoteformat input{
+  margin: 0 10px;
+  width: 60%;
+  font: 16px 'Nunito Sans', sans-serif;
+}
+
+.newnoteformat form>div:nth-child(3){
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.newnoteformat form>div:nth-child(3) div{
+  width: 50%;
+}
+
+.newnoteformat form>div:nth-child(4),
+.newquote>div{
+  align-self: flex-end;
+}
+
+.newnoteformat form button:nth-child(2){
+  background-color: var(--red);
+  margin: 0 4vw;
+}
+
+.newquote>input{
+  margin: 10px 0;
+  width: 50%;
+}
 
 
 /* New book */

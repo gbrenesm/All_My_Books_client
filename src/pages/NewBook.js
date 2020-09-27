@@ -5,7 +5,8 @@ import axios from "axios"
 
 function NewBook({ history }) {
   const titleInput = useInput("")
-  const authorInput = useInput("")
+  const authorFirstNameInput = useInput("")
+  const authorLastNameInput = useInput("")
   const publisherInput = useInput("")
   const publishedInput = useInput("")
   const editionInput = useInput("")
@@ -27,7 +28,6 @@ function NewBook({ history }) {
 
   async function submitForm(e){
     const title = titleInput.value
-    const author = authorInput.value
     const publisher = publisherInput.value
     const published = publishedInput.value
     const edition = editionInput.value
@@ -40,7 +40,8 @@ function NewBook({ history }) {
     e.preventDefault()
     await createBook({
       title,
-      author,
+      authorFirstName: authorFirstNameInput.value,
+      authorLastName: authorLastNameInput.value,
       publisher,
       published,
       edition,
@@ -61,8 +62,11 @@ function NewBook({ history }) {
         <label>Título</label>
         <input required type="text" name="title" id="title" {...titleInput}/>
         <br/>
-        <label>Autor</label>
-        <input type="text" name="author" id="author" {...authorInput}/>
+        <label>Nombre del autor(a)</label>
+        <input type="text" name="author" id="author" {...authorFirstNameInput}/>
+        <br/>
+        <label>Apellido del autor(a)</label>
+        <input type="text" name="author" id="author" {...authorLastNameInput}/>
         <br/>
         <label>Editorial</label>
         <input type="text" name="publisher" id="publisher" {...publisherInput}/>
@@ -87,8 +91,8 @@ function NewBook({ history }) {
         <input type="text" name="description" id="description" {...descriptionInput}/>
         <br/>
         <label>Formato</label>
-        <select name="format" {...formatInput}>
-          <option>Selecciona</option>
+        <select required name="format" {...formatInput}>
+          <option value="" selected>Selecciona una opción</option>
           <option value="TAPA BLANDA">Tapa blanda</option>
           <option value="TAPA DURA">Tapa dura</option>
           <option value="EBOOK ">Ebook</option>

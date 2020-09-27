@@ -13,19 +13,18 @@ function Layout({ children }) {
   const history = useHistory()
 
 
-  const currentUser = async () => {
-    getCurrentUser()
-    console.log(user)
-  }
+async function fetchUser(){
+  const userPhoto = getCurrentUser()
+}
   const logoutClick = async () =>{
     await logout()
     logoutUser()
     history.push("/")
   }
 
-  useEffect(()=>{
-    currentUser()
-  }, [])
+  // useEffect(()=>{
+  //   currentUser()
+  // }, [])
 
   return (
     <div>

@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from 'react'
-import { useHistory, Link } from "react-router-dom"
 import Loader from "../components/Loader"
-import { getBookDetail, deleteBook } from "../services/books"
+import { getBookDetail } from "../services/books"
 import { deleteNote } from "../services/notes"
 import { deleteQuote } from "../services/quote"
 import NewNote from "../components/NewNote"
 import NewQuote from "../components/NewQuote"
+import Reference from "../components/Reference"
+import BookCardDetail from "../components/BookCardDetail"
+import { Link } from 'react-router-dom'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faFileAlt, faBookmark, faQuoteLeft } from "@fortawesome/free-solid-svg-icons"
 
 function BookDetail({ match: { params: { bookId } }}) {
-  const history = useHistory()
   const [book, setBook] = useState(null)
   const [notes, setNotes] = useState(true)
   const [quotes, setQuotes] = useState(false)
@@ -25,10 +28,6 @@ function BookDetail({ match: { params: { bookId } }}) {
     setAllQuotes(detailbook.book.quotes)
   }
 
-  async function eliminateBook(){
-    await deleteBook(bookId)
-    history.push("/userhome")
-  }
 
   async function eliminateNote(id){
     await deleteNote(id)
@@ -67,47 +66,40 @@ function BookDetail({ match: { params: { bookId } }}) {
   return (
     <div className="bookdetail">
         {book? 
-          <>
-          <div>
-              <div>
-                <img src={book.cover} alt="Book cover"/>
-                <div>
-                  <button><Link to={`/detialbook/${book._id}/update`}>Editar libro</Link></button>
-                  <button onClick={eliminateBook}>Eliminar libro</button>
-                </div>
-              </div>
-              <div>
-                <h2>{book.title}</h2>
-                <h3>{book.author}</h3>
-                <p><b>Editorial: </b>{book.publisher}</p>
-                <p><b>Edición: </b>{book.edition}</p>
-                <p>{book.published}</p>
-              </div>
-          </div>
-          <div>
-            <button onClick={showNotes}>Notas</button>
-            <button onClick={showQuotes}>Citas</button>
-            <button onClick={showReferences}>Referencia</button>
+        <>
+          <BookCardDetail book={book}></BookCardDetail>
+          <div className="notesbook">
+            <Link onClick={showNotes}><FontAwesomeIcon icon={faBookmark}/>&nbsp;Notas</Link>
+            <Link onClick={showQuotes}><FontAwesomeIcon icon={faQuoteLeft}/>&nbsp;Citas</Link>
+            <Link onClick={showReferences}><FontAwesomeIcon icon={faFileAlt}/>&nbsp;Referencia</Link>
             {notes && 
-              <div>Notas
+              <div className="notescards">
                 <NewNote bookIdToUse={bookId} setNewNote={setNewNote}></NewNote>
-                {allNotes?.map((note, i) => (
-                  <div key={i}>
+                {allNotes? allNotes.map((note, i) => (
+                  <div className="onenotecard" key={i}>
+                    <p>{note.chapter}</p>
+                    {note.pages && <p>Página(s): {note.pages}</p>}
                     <p>{note.description}</p>
                     <button onClick={()=>{eliminateNote(note._id)}}>Eliminar nota</button>
                   </div> 
-                ))}
+                )) : <p>Agrega tus notas sobre el libro</p>}
               </div>}
-            {quotes && <div>Citas
+            {quotes && 
+              <div className="notescards">
                 <NewQuote bookIdToUse={bookId} setNewQuote={setNewQuote}></NewQuote>
                 {allQuotes?.map((quote, i) => (
-                  <div key={i}>
+                  <div className="onenotecard" key={i}>
                     <p>«{quote.description}»</p>
+                    {quote.pages && <p>Página(s): {quote.pages}</p>}
+                    {quote.note && <p>Nota: {quote.note}</p>}
                     <button onClick={()=>{eliminateQuote(quote._id)}}>Eliminar nota</button>
                   </div> 
                 ))}
                 </div>}
-            {references && <div>Referencias</div>}
+            {references && 
+              <div className="notescards">Referencias
+                <Reference bookData={book}></Reference>
+              </div>}
           </div>
           </>
         : <Loader></Loader>}

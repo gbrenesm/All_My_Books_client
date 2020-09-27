@@ -1,6 +1,9 @@
 import React, { useState } from 'react'
 import useInput from "../hooks/useInput"
 import { createQuote } from "../services/quote"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faFeatherAlt } from "@fortawesome/free-solid-svg-icons"
+
 
 function NewQuote({bookIdToUse, setNewQuote}) {
   const descriptionInput = useInput("")
@@ -12,7 +15,7 @@ function NewQuote({bookIdToUse, setNewQuote}) {
     e.preventDefault()
     await createQuote(bookIdToUse, {
       description: descriptionInput.value,
-      chapter: noteInput.value,
+      note: noteInput.value,
       pages: pagesInput.value
     })
     setShowFrom(false)
@@ -25,18 +28,20 @@ function NewQuote({bookIdToUse, setNewQuote}) {
   }
 
   return (
-    <div>
-      <button onClick={changeForm}>Agregar nota</button>
+    <div className="newnoteformat">
+      {!showFrom && <button onClick={changeForm}><FontAwesomeIcon icon={faFeatherAlt}/>Agrega una nueva cita</button>}
       {showFrom && 
-        <form onSubmit={submitForm}>
-          <label>Descripción:</label>
-          <textarea required type="text" name="description" id="description" {...descriptionInput}></textarea>
+        <form className="newquote" onSubmit={submitForm}>
+          <label>Cita textual:</label>
+          <textarea required type="text" name="description" id="description" placeholder="Escribe aquí la cita que quieras guardar, no es necesario ponerla entre comillas" {...descriptionInput}></textarea>
           <label>Nota:</label>
-          <textarea type="text" name="note" id="note" {...noteInput}></textarea>
+          <textarea type="text" name="note" id="note" placeholder="¿Algún pensamiento relacionada a la cita?" {...noteInput}></textarea>
           <label>Páginas:</label>
-          <input type="text" name="pages" id="pages" {...pagesInput}></input>
-          <button type="submit"> Crear cita</button>
-          <button onClick={changeForm}>Cancelar</button>
+          <input type="text" name="pages" id="pages" placeholder="Ejs. 2-4, 7 y 15" {...pagesInput}></input>
+          <div className="newquote">
+            <button type="submit"> Crear cita</button>
+            <button onClick={changeForm}>Cancelar</button>
+          </div>
         </form>
       }
     </div>
