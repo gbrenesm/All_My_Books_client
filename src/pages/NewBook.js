@@ -15,13 +15,12 @@ function NewBook({ history }) {
   const pagesInput = useInput("")
   const formatInput = useInput("")
   const descriptionInput = useInput("")
-  const [imageURL, setImageURL] = useState(null)
+  const [imageURL, setImageURL] = useState("https://res.cloudinary.com/dxncdwsau/image/upload/v1601179377/All%20My%20Books/All_My_Books_fwa6ma.jpg")
 
   async function uploadCover({ target: { files } }){
     const data = new FormData()
     data.append("file", files[0])
     data.append("upload_preset", "all_my_books")
-
     const { data: { secure_url } } = await axios.post("http://api.cloudinary.com/v1_1/dxncdwsau/image/upload", data)
     setImageURL(secure_url)
   }

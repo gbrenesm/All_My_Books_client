@@ -36,7 +36,6 @@ function UserHome() {
           <Link to="/newbook">Nuevo libro</Link>
         </div>
         <div>
-          Nombre de usuario: {user?.username}
           {books? books.map((book, i)=> (
             <div key={i} className="bookcard">
               <img src={book.cover} alt="Book cover"/>

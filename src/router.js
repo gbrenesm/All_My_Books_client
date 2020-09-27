@@ -5,7 +5,6 @@ import Home from "./pages/Home"
 import UserHome from "./pages/UserHome"
 import BookDetail from "./pages/BookDetail"
 import NewBook from "./pages/NewBook"
-import EditBook from "./pages/EditBook"
 
 
 //const Home = () => <h1>Home</h1>
@@ -25,7 +24,6 @@ const Router = () => {
           <Route component={NewBook} path="/newbook" exact/>
           <Route component={BookDetail} path="/detialbook/:bookId" exact/>
           <Route component={ConfigProfile} path="/configprofile" exact/>
-          <Route component={EditBook} path="/detialbook/:bookId/update" exact/>
         </Layout>
       </Switch>
     </BrowserRouter>
