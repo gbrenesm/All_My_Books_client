@@ -39,7 +39,7 @@ function UserHome() {
 
   async function fetchBookByShelf(shelfId){
     const booksByShelf = await getOneShelf(shelfId)
-    //setBooks(booksByShelf.books)
+    setBooks(booksByShelf.books.books)
    }
 
   async function submitForm(e){
@@ -76,7 +76,7 @@ function UserHome() {
               <button type="submit">Crear estante</button>
               <button onClick={showForm}>Cancelar</button>
             </form>}
-          <li><FontAwesomeIcon icon={faBook}/>&nbsp;Todos tus libros</li>
+          <li><Link onClick={fetchAllBooks}><FontAwesomeIcon icon={faBook}/>&nbsp;Todos tus libros</Link></li>
           {shelves?.map((shelf, i) => (
           <li key={i}><Link onClick={() => fetchBookByShelf(shelf._id)}><FontAwesomeIcon icon={faBook}/>&nbsp;{shelf.name}</Link></li>
           ))}
@@ -100,7 +100,7 @@ function UserHome() {
             </div>
           )) 
           : <Loader></Loader>}
-          {!books && <p>Aún no tienes libros</p>}
+          {books === [] && <p>Aún no tienes libros</p>}
         </div>
           {lessbtn && <button onClick={pagintationLess}>Regresa</button>}
           {books && <button onClick={pagintationMore}>Ver más libros</button>}
