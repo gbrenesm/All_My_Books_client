@@ -196,12 +196,13 @@ nav div:nth-child(1) img{
 
 nav div:nth-child(1) p{
   margin: 0;
+  font-size: 30px;
 }
 
 nav ul{
   display: flex;
-  justify-content: space-around;
-  margin: 0;
+  justify-content: flex-end;
+  margin-right: 5vw;
   align-items: center;
 
 }
@@ -220,11 +221,17 @@ nav ul img{
   border-radius: 50%;
 }
 
+.navicon{
+  display: flex;
+  align-items: center;
+}
+
 nav ul li ul{
   visibility: hidden;
   display: none;
   position: absolute;
-  right: 1vh;
+  right: .2vw;
+  top: 70px;
   padding: 3vh 1vw;
 }
 
@@ -505,4 +512,10 @@ ul li ul:hover {
 
 .editbook{
   padding-top: 60px
+}
+
+/* Edit user */
+
+.userProfile{
+  padding-top: 120px
 }

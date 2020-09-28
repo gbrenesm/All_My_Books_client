@@ -46,7 +46,7 @@ function BookCardDetail({book, setUpdateBook}) {
 
   async function submitForm(e){
     e.preventDefault()
-    await updateBook(book._id,{
+    await updateBook(book._id, {
       title: titleInput.value,
       authorFirstName: authorFirstNameInput.value,
       authorLastName: authorLastNameInput.value,

@@ -23,7 +23,7 @@ export const getCurrentUser = async () => {
 
 export const updateUser = async userData => {
   const { data: user } = await service.put("/updateuser", userData)
-  return (user)
+  return user
 }
 
 export const logout = async () => {

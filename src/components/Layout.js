@@ -1,30 +1,22 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { Context } from "../context"
 import { Link } from "react-router-dom"
-import { logout, getCurrentUser } from "../services/auth"
+import { logout } from "../services/auth"
 import { useHistory } from "react-router-dom"
-import Loader from "../components/Loader"
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faAngleDown } from "@fortawesome/free-solid-svg-icons"
 
 function Layout({ children }) {
   const { user, clearctxUser} = useContext(Context)
-  const [profilePic, setProfilePic] = useState(null)
   
   const history = useHistory()
 
-
-async function fetchUser(){
-  const userPhoto = getCurrentUser()
-}
   const logoutClick = async () =>{
     await logout()
     clearctxUser()
     history.push("/")
   }
 
-  // useEffect(()=>{
-  //   currentUser()
-  // }, [])
 
   return (
     <div>
@@ -34,8 +26,7 @@ async function fetchUser(){
         </div>
         <div>
           <ul>
-            <li>Algo</li>
-            <li><img src={user? user.profilePhoto : <Loader></Loader>} alt="User"/>
+            <li className="navicon"><FontAwesomeIcon icon={faAngleDown}/>&nbsp;<img src={user?.profilePhoto} alt="User"/>
               <ul>
                 <li><Link to="/userconfig">Configuración</Link></li>
                 <li onClick={logoutClick}><Link>Cierra sesión</Link></li>

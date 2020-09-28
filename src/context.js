@@ -6,17 +6,13 @@ export const Context = createContext()
 export default function CtxProvider({ children }){
   const [user, setUser] = useState(null)
 
-  // async function getSession(){
-  //   const { user } = await getCurrentUser()
-  //   //console.log(user)
-  //   if (user?.email){
-  //     loginUser(user)
-  //   }
-  // }
-
-  // useEffect(() => {
-  //   getSession()
-  // },[])
+  useEffect(() => {
+    async function userdata() {
+      const { user } = await getCurrentUser()
+      setUser(user)
+    }
+    userdata()
+  },[])
 
   const ctxUser = loginUser => setUser(loginUser)
   const clearctxUser = () => setUser(null)
