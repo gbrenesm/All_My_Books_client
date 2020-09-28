@@ -26,30 +26,20 @@ function NewBook({ history }) {
   }
 
   async function submitForm(e){
-    const title = titleInput.value
-    const publisher = publisherInput.value
-    const published = publishedInput.value
-    const edition = editionInput.value
-    const ISBN = ISBNInput.value
-    const publishPlace = publishPlaceInput.value
-    const pages = pagesInput.value
-    const format = formatInput.value
-    const description = descriptionInput.value
-    const cover = imageURL
     e.preventDefault()
     await createBook({
-      title,
+      title: titleInput.value,
       authorFirstName: authorFirstNameInput.value,
       authorLastName: authorLastNameInput.value,
-      publisher,
-      published,
-      edition,
-      ISBN,
-      publishPlace,
-      pages,
-      format,
-      description,
-      cover
+      publisher: publisherInput.value,
+      published: publishedInput.value,
+      edition: editionInput.value,
+      ISBN: ISBNInput.value,
+      publishPlace: publishPlaceInput.value,
+      pages: pagesInput.value,
+      format: formatInput.value,
+      description: descriptionInput.value,
+      cover: imageURL
     })
     history.push("/userhome")
   }

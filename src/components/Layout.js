@@ -7,7 +7,7 @@ import Loader from "../components/Loader"
 
 
 function Layout({ children }) {
-  const { user, logoutUser} = useContext(Context)
+  const { user, clearctxUser} = useContext(Context)
   const [profilePic, setProfilePic] = useState(null)
   
   const history = useHistory()
@@ -18,7 +18,7 @@ async function fetchUser(){
 }
   const logoutClick = async () =>{
     await logout()
-    logoutUser()
+    clearctxUser()
     history.push("/")
   }
 
@@ -30,14 +30,14 @@ async function fetchUser(){
     <div>
       <nav>
         <div>
-          <p><img src="https://res.cloudinary.com/dxncdwsau/image/upload/v1600963193/All_My_Books/%C3%8Dcono_de_libros_blanco_hajncl.png" alt="Books icon"/>&nbsp; <Link to="/userhome/1">All My Books</Link></p>
+          <p><img src="https://res.cloudinary.com/dxncdwsau/image/upload/v1600963193/All_My_Books/%C3%8Dcono_de_libros_blanco_hajncl.png" alt="Books icon"/>&nbsp; <Link to="/userhome">All My Books</Link></p>
         </div>
         <div>
           <ul>
             <li>Algo</li>
             <li><img src={user? user.profilePhoto : <Loader></Loader>} alt="User"/>
               <ul>
-                <li><Link to="/configprofile">Configuración</Link></li>
+                <li><Link to="/userconfig">Configuración</Link></li>
                 <li onClick={logoutClick}><Link>Cierra sesión</Link></li>
               </ul>
             </li>

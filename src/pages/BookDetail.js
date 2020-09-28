@@ -20,6 +20,7 @@ function BookDetail({ match: { params: { bookId } }}) {
   const [allQuotes, setAllQuotes] = useState(null)
   const [newNote, setNewNote] = useState(false)
   const [newQuote, setNewQuote] = useState(false)
+  const [updateBook, setUpdateBook] = useState(false)
 
   async function fetchBook() {
     const detailbook = await getBookDetail(bookId)
@@ -61,13 +62,14 @@ function BookDetail({ match: { params: { bookId } }}) {
     fetchBook()
     setNewNote(false)
     setNewQuote(false)
-  }, [newNote, newQuote])
+    setUpdateBook(false)
+  }, [newNote, newQuote, updateBook])
 
   return (
     <div className="bookdetail">
         {book? 
         <>
-          <BookCardDetail book={book}></BookCardDetail>
+          <BookCardDetail book={book} setUpdateBook={setUpdateBook}></BookCardDetail>
           <div className="notesbook">
             <Link onClick={showNotes}><FontAwesomeIcon icon={faBookmark}/>&nbsp;Notas</Link>
             <Link onClick={showQuotes}><FontAwesomeIcon icon={faQuoteLeft}/>&nbsp;Citas</Link>

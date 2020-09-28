@@ -1,4 +1,5 @@
-import React, { useState } from "react"
+import React, { useState, useContext } from "react"
+import { Context } from "../context"
 import useInput from "../hooks/useInput"
 import { signup, login } from "../services/auth"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
@@ -6,6 +7,7 @@ import { faGoogle, faFacebookF } from "@fortawesome/free-brands-svg-icons"
 import { Link } from "react-router-dom"
 
 function Home ({ history }) {
+  const { ctxUser } = useContext(Context)
   const usernameInput = useInput("")
   const emailInput = useInput("")
   const passwordInput = useInput("")
@@ -28,12 +30,13 @@ function Home ({ history }) {
     e.preventDefault()
     const email = emailInput.value
     const password = passwordInput.value
-    await login({email, password}).catch(err => {
+    const user = await login({email, password}).catch(err => {
       console.dir(err.response.data.message)
       notificationError(err.response.data.message)
     })
     if (error) console.log("Hay un error")
-    else {history.push("/userhome/1")}
+    else {history.push("/userhome")}
+    ctxUser(user)
   }
 
   function changeLogin(){

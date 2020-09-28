@@ -8,7 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import {faEdit, faTrashAlt } from "@fortawesome/free-solid-svg-icons"
 
 
-function BookCardDetail({book}) {
+function BookCardDetail({book, setUpdateBook}) {
   const [showForm, setShowForm] = useState(false)
   const history = useHistory()
   const titleInput = useInput(book.title)
@@ -61,6 +61,7 @@ function BookCardDetail({book}) {
       cover: coverURL
     })
     setShowForm(false)
+    setUpdateBook(true)
   }
 
 

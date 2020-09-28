@@ -1,33 +1,67 @@
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link } from "react-router-dom"
 import { getAllUsersBooks } from "../services/books"
+import { createShelf, getOneShelf } from "../services/shelfs"
+import useInput from "../hooks/useInput"
 import Loader from "../components/Loader"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faBook } from "@fortawesome/free-solid-svg-icons"
-import { Context } from "../context"
 
-
-function UserHome({ history }) {
+function UserHome() {
   const [books, setBooks] = useState(null)
+  const [shelfs, setShelfs] = useState(null)
   const [changePage, setChangePage] = useState(false)
   const [page, setPage] = useState(1)
+  const [lessbtn, setLessbtn] = useState(false)
+  const [showNewShelf, setShowNewShelf] = useState(false)
+  const [newShlef, setNewShlef] = useState(false)
+  const nameInput = useInput("")
 
   function pagintationMore(){
-    setPage(2)
+    setPage(page + 1)
+    setChangePage(true)
+    setLessbtn(true)
+    console.log(page)
+  }
+
+  function pagintationLess(){
+    if (page <= 1) setLessbtn(false)
+    else setPage(page - 1)
     setChangePage(true)
     console.log(page)
-    history.push(`/userhome/${page}`)
   }
-  async function fetchBooks() {
+
+  async function fetchAllBooks() {
     const userbooks = await getAllUsersBooks(page)
     setBooks(userbooks.user.books)
+    setShelfs(userbooks.user.shelfs)
+  }
+
+  async function fetchBookByShelf(shelfId){
+    const booksByShelf = await getOneShelf(shelfId)
+    console.log(booksByShelf.books)
+    //setBooks(booksByShelf.books)
+   }
+
+  async function submitForm(e){
+    e.preventDefault()
+    await createShelf({
+      name: nameInput.value
+    })
+    setShowNewShelf(false)
+    setNewShlef(true)
   }
   
+  function showForm(){
+    if (showNewShelf) setShowNewShelf(false)
+    else setShowNewShelf(true)
+  }
 
   useEffect(() => {
-    fetchBooks()
+    fetchAllBooks()
     setChangePage(false)
-  }, [changePage])
+    setNewShlef(false)
+  }, [changePage, newShlef])
 
 
   return (
@@ -35,7 +69,18 @@ function UserHome({ history }) {
       <div>
         <h3>Estantes</h3>
         <ul>
+          {!showNewShelf && <button onClick={showForm}>Agrega un nuevo estante</button>}
+          {showNewShelf && 
+            <form onSubmit={submitForm}>
+              <label>Nombre del estante</label>
+              <input required type="text" name="name" id="name" {...nameInput}/>
+              <button type="submit">Crear estante</button>
+              <button onClick={showForm}>Cancelar</button>
+            </form>}
           <li><FontAwesomeIcon icon={faBook}/>&nbsp;Todos tus libros</li>
+          {shelfs?.map((shelf, i) => (
+          <li key={i}><Link onClick={() => fetchBookByShelf(shelf._id)}><FontAwesomeIcon icon={faBook}/>&nbsp;{shelf.name}</Link></li>
+          ))}
         </ul>
       </div>
       <div>
@@ -58,6 +103,7 @@ function UserHome({ history }) {
           : <Loader></Loader>}
           {!books && <p>Aún no tienes libros</p>}
         </div>
+          {lessbtn && <button onClick={pagintationLess}>Regresa</button>}
           {books && <button onClick={pagintationMore}>Ver más libros</button>}
       </div>
     </div>
