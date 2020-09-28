@@ -21,7 +21,7 @@ function NewBook({ history }) {
     const data = new FormData()
     data.append("file", files[0])
     data.append("upload_preset", "all_my_books")
-    const { data: { secure_url } } = await axios.post("http://api.cloudinary.com/v1_1/dxncdwsau/image/upload", data)
+    const { data: { secure_url } } = await axios.post(process.env.REACT_APP_CLOUDINARY_URL, data)
     setImageURL(secure_url)
   }
 

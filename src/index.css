@@ -332,7 +332,8 @@ ul li ul:hover {
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
   border-radius: 15px;
   display: flex;
-  height: 70vh;
+  height: auto;
+  padding: 20px;
 }
 
 /* Book's details left side*/

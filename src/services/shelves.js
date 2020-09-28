@@ -13,9 +13,18 @@ export const getOneShelf = async shelfId => {
   return shelf
 }
 
+export const getUserShelves = async () => {
+  const { data: shelves } = await service.get(`usershelves`)
+  return shelves
+}
+
 export const addBookShelf = async (bookId, shelfData) => {
   const { data: shelf } = await service.put(`addbook/${bookId}`, shelfData)
   return shelf
+}
+
+export const removeBookShelf = async (bookId, shelfId) => {
+  await service.put(`removebook/${bookId}`, shelfId)
 }
 
 export const deleteShelf = async shelfId => {

@@ -1,14 +1,14 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import { Link, useHistory } from "react-router-dom"
-import { deleteBook } from "../services/books"
-import { updateBook } from '../services/books'
+import { deleteBook, updateBook } from "../services/books"
+import ShelvesInBook from "./ShelvesInBook"
 import axios from "axios"
 import useInput from "../hooks/useInput"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import {faEdit, faTrashAlt } from "@fortawesome/free-solid-svg-icons"
 
 
-function BookCardDetail({book, setUpdateBook}) {
+function BookCardDetail({book, setUpdateBook, bookShelves, bookId, setNewShelf}) {
   const [showForm, setShowForm] = useState(false)
   const history = useHistory()
   const titleInput = useInput(book.title)
@@ -23,7 +23,6 @@ function BookCardDetail({book, setUpdateBook}) {
   const formatInput = useInput("")
   const descriptionInput = useInput(book.description)
   const [coverURL, setCoverURL] = useState(book.cover)
-
 
   async function eliminateBook(){
     await deleteBook(book._id)
@@ -40,7 +39,7 @@ function BookCardDetail({book, setUpdateBook}) {
     data.append("file", files[0])
     data.append("upload_preset", "all_my_books")
 
-    const { data: { secure_url } } = await axios.post("http://api.cloudinary.com/v1_1/dxncdwsau/image/upload", data)
+    const { data: { secure_url } } = await axios.post(process.env.REACT_APP_CLOUDINARY_URL, data)
     setCoverURL(secure_url)
   }
 
@@ -63,7 +62,7 @@ function BookCardDetail({book, setUpdateBook}) {
     setShowForm(false)
     setUpdateBook(true)
   }
-
+  
 
   return (
     <div className="bookDetailCard">
@@ -90,8 +89,14 @@ function BookCardDetail({book, setUpdateBook}) {
           <p><b>ISBN:</b> {book.ISBN}</p>
         </div>
         <div>
-          <p><b>Reseña:</b></p>
-          <p>{book.description}</p>
+          <div>
+            <p><b>Reseña:</b></p>
+            <p>{book.description}</p>
+          </div>
+          <div>
+            <p><b>Estantes: </b></p>
+            <ShelvesInBook shelves={bookShelves} bookId={bookId} setNewShelf={setNewShelf}></ShelvesInBook>
+          </div>
         </div>
         </>}
         

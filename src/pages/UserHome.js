@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from "react-router-dom"
 import { getAllUsersBooks } from "../services/books"
-import { createShelf, getOneShelf } from "../services/shelfs"
+import { createShelf, getOneShelf } from "../services/shelves"
 import useInput from "../hooks/useInput"
 import Loader from "../components/Loader"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
@@ -9,7 +9,7 @@ import { faBook } from "@fortawesome/free-solid-svg-icons"
 
 function UserHome() {
   const [books, setBooks] = useState(null)
-  const [shelfs, setShelfs] = useState(null)
+  const [shelves, setShelves] = useState(null)
   const [changePage, setChangePage] = useState(false)
   const [page, setPage] = useState(1)
   const [lessbtn, setLessbtn] = useState(false)
@@ -34,12 +34,11 @@ function UserHome() {
   async function fetchAllBooks() {
     const userbooks = await getAllUsersBooks(page)
     setBooks(userbooks.user.books)
-    setShelfs(userbooks.user.shelfs)
+    setShelves(userbooks.user.shelves)
   }
 
   async function fetchBookByShelf(shelfId){
     const booksByShelf = await getOneShelf(shelfId)
-    console.log(booksByShelf.books)
     //setBooks(booksByShelf.books)
    }
 
@@ -78,7 +77,7 @@ function UserHome() {
               <button onClick={showForm}>Cancelar</button>
             </form>}
           <li><FontAwesomeIcon icon={faBook}/>&nbsp;Todos tus libros</li>
-          {shelfs?.map((shelf, i) => (
+          {shelves?.map((shelf, i) => (
           <li key={i}><Link onClick={() => fetchBookByShelf(shelf._id)}><FontAwesomeIcon icon={faBook}/>&nbsp;{shelf.name}</Link></li>
           ))}
         </ul>

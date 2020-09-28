@@ -18,8 +18,10 @@ function BookDetail({ match: { params: { bookId } }}) {
   const [references, setReferences] = useState(false)
   const [allNotes, setAllNotes] = useState(null)
   const [allQuotes, setAllQuotes] = useState(null)
+  const [allShelves, setAllShelves] = useState(null)
   const [newNote, setNewNote] = useState(false)
   const [newQuote, setNewQuote] = useState(false)
+  const [newShelf, setNewShelf] = useState(false)
   const [updateBook, setUpdateBook] = useState(false)
 
   async function fetchBook() {
@@ -27,8 +29,8 @@ function BookDetail({ match: { params: { bookId } }}) {
     setBook(detailbook.book)
     setAllNotes(detailbook.book.notes)
     setAllQuotes(detailbook.book.quotes)
+    setAllShelves(detailbook.book.bookshelves)
   }
-
 
   async function eliminateNote(id){
     await deleteNote(id)
@@ -63,13 +65,14 @@ function BookDetail({ match: { params: { bookId } }}) {
     setNewNote(false)
     setNewQuote(false)
     setUpdateBook(false)
-  }, [newNote, newQuote, updateBook])
+    setNewShelf(false)
+  }, [newNote, newQuote, updateBook, newShelf])
 
   return (
     <div className="bookdetail">
         {book? 
         <>
-          <BookCardDetail book={book} setUpdateBook={setUpdateBook}></BookCardDetail>
+          <BookCardDetail book={book} setUpdateBook={setUpdateBook} bookShelves={allShelves} bookId={bookId} setNewShelf={setNewShelf}></BookCardDetail>
           <div className="notesbook">
             <Link onClick={showNotes}><FontAwesomeIcon icon={faBookmark}/>&nbsp;Notas</Link>
             <Link onClick={showQuotes}><FontAwesomeIcon icon={faQuoteLeft}/>&nbsp;Citas</Link>
