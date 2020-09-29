@@ -2,6 +2,9 @@ import React, { useState } from 'react'
 import { createBook } from "../services/books"
 import useInput from "../hooks/useInput"
 import axios from "axios"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faBookOpen } from "@fortawesome/free-solid-svg-icons"
+
 
 function NewBook({ history }) {
   const titleInput = useInput("")
@@ -48,48 +51,62 @@ function NewBook({ history }) {
     <div className="newbook">
       <h2>Crea un nuevo libro</h2>
       <form onSubmit={submitForm}>
-        <label>Título</label>
-        <input required type="text" name="title" id="title" {...titleInput}/>
-        <br/>
-        <label>Nombre del autor(a)</label>
-        <input type="text" name="author" id="author" {...authorFirstNameInput}/>
-        <br/>
-        <label>Apellido del autor(a)</label>
-        <input type="text" name="author" id="author" {...authorLastNameInput}/>
-        <br/>
-        <label>Editorial</label>
-        <input type="text" name="publisher" id="publisher" {...publisherInput}/>
-        <br/>
-        <label>Año de publicación</label>
-        <input type="text" name="published" id="published" {...publishedInput}/>
-        <br/>
-        <label>Edición</label>
-        <input type="text" name="edition" id="edition" {...editionInput}/>
-        <br/>
-        <label>ISBN</label>
-        <input type="text" name="ISBN" id="ISBN" {...ISBNInput}/>
-        <br/>
-        <label>Lugar de publicación</label>
-        <input type="text" name="publishPlace" id="publishPlace" {...publishPlaceInput}/>
-        <br/>
-        <label>Páginas</label>
-        <input type="text" name="pages" id="pages" {...pagesInput}/>
-        <br/>
-        <br/>
-        <label>Descripción</label>
-        <input type="text" name="description" id="description" {...descriptionInput}/>
-        <br/>
-        <label>Formato</label>
-        <select required name="format" {...formatInput}>
-          <option value="" selected>Selecciona una opción</option>
-          <option value="TAPA BLANDA">Tapa blanda</option>
-          <option value="TAPA DURA">Tapa dura</option>
-          <option value="EBOOK ">Ebook</option>
-        </select>
-        <label>Portada</label>
-        <input type="file" onChange={uploadCover}/>
-        <br/>
-        <button type="submit"> Crear libro</button>
+        <div>
+          <label>Título:</label>
+          <input required type="text" name="title" id="title" {...titleInput}/>
+        </div>
+        <div>
+          <label>Nombre del autor(a):</label>
+          <input type="text" name="author" id="author" {...authorFirstNameInput}/>
+        </div>
+        <div>
+          <label>Apellido del autor(a):</label>
+          <input type="text" name="author" id="author" {...authorLastNameInput}/>
+        </div>
+        <div>
+          <label>Editorial:</label>
+          <input type="text" name="publisher" id="publisher" {...publisherInput}/>
+        </div>
+        <div>
+          <label>Año de publicación:</label>
+          <input type="text" name="published" id="published" {...publishedInput}/>
+        </div>
+        <div>
+          <label>Edición:</label>
+          <input type="text" name="edition" id="edition" {...editionInput}/>
+        </div>
+        <div>
+          <label>ISBN:</label>
+          <input type="text" name="ISBN" id="ISBN" {...ISBNInput}/>
+        </div>
+        <div>
+          <label>Lugar de publicación:</label>
+          <input type="text" name="publishPlace" id="publishPlace" {...publishPlaceInput}/>
+        </div>
+        <div>
+          <label>Páginas:</label>
+          <input type="text" name="pages" id="pages" {...pagesInput}/>
+        </div>
+        <div>
+          <label>Descripción:</label>
+          <textarea type="text" name="description" id="description" {...descriptionInput}/>
+        </div>
+        <div>
+          <label>Formato:</label>
+          <select required name="format" {...formatInput}>
+            <option value="" selected>Selecciona una opción</option>
+            <option value="TAPA BLANDA">Tapa blanda</option>
+            <option value="TAPA DURA">Tapa dura</option>
+            <option value="EBOOK ">Ebook</option>
+          </select>
+        </div>
+        <div>
+          <label>Portada: </label>
+          <input type="file" onChange={uploadCover}/>
+        </div>
+        <div>
+         <button type="submit"><FontAwesomeIcon icon={faBookOpen}/>&nbsp;Crear libro</button>
+        </div>
       </form>
     </div>
   )

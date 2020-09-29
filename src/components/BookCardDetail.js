@@ -93,10 +93,7 @@ function BookCardDetail({book, setUpdateBook, bookShelves, bookId, setNewShelf})
             <p><b>Reseña:</b></p>
             <p>{book.description}</p>
           </div>
-          <div>
-            <p><b>Estantes: </b></p>
             <ShelvesInBook shelves={bookShelves} bookId={bookId} setNewShelf={setNewShelf}></ShelvesInBook>
-          </div>
         </div>
         </>}
         

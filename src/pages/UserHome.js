@@ -5,7 +5,7 @@ import { createShelf, getOneShelf } from "../services/shelves"
 import useInput from "../hooks/useInput"
 import Loader from "../components/Loader"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faBook } from "@fortawesome/free-solid-svg-icons"
+import { faBook, faPlus } from "@fortawesome/free-solid-svg-icons"
 
 function UserHome() {
   const [books, setBooks] = useState(null)
@@ -21,14 +21,12 @@ function UserHome() {
     setPage(page + 1)
     setChangePage(true)
     setLessbtn(true)
-    console.log(page)
   }
 
   function pagintationLess(){
     if (page <= 1) setLessbtn(false)
     else setPage(page - 1)
     setChangePage(true)
-    console.log(page)
   }
 
   async function fetchAllBooks() {
@@ -40,7 +38,7 @@ function UserHome() {
   async function fetchBookByShelf(shelfId){
     const booksByShelf = await getOneShelf(shelfId)
     setBooks(booksByShelf.books.books)
-   }
+  }
 
   async function submitForm(e){
     e.preventDefault()
@@ -66,26 +64,23 @@ function UserHome() {
   return (
     <div className="userhome">
       <div>
-        <h3>Estantes</h3>
-        <ul>
-          {!showNewShelf && <button onClick={showForm}>Agrega un nuevo estante</button>}
+        <h2>Estantes</h2>
+          {!showNewShelf && <button onClick={showForm}><FontAwesomeIcon icon={faPlus}/>&nbsp;&nbsp;Crear nuevo estante</button>}
           {showNewShelf && 
             <form onSubmit={submitForm}>
-              <label>Nombre del estante</label>
+              <label><b>Nombre del estante: </b></label>
               <input required type="text" name="name" id="name" {...nameInput}/>
               <button type="submit">Crear estante</button>
               <button onClick={showForm}>Cancelar</button>
             </form>}
-          <li><Link onClick={fetchAllBooks}><FontAwesomeIcon icon={faBook}/>&nbsp;Todos tus libros</Link></li>
+        <ul>
+          <li><Link onClick={fetchAllBooks}><FontAwesomeIcon icon={faBook}/>&nbsp;&nbsp;Todos tus libros</Link></li>
           {shelves?.map((shelf, i) => (
-          <li key={i}><Link onClick={() => fetchBookByShelf(shelf._id)}><FontAwesomeIcon icon={faBook}/>&nbsp;{shelf.name}</Link></li>
+          <li key={i}><Link onClick={() => fetchBookByShelf(shelf._id)}><FontAwesomeIcon icon={faBook}/>&nbsp;&nbsp;{shelf.name}</Link></li>
           ))}
         </ul>
       </div>
       <div>
-        <div>
-          <Link to="/newbook">Nuevo libro</Link>
-        </div>
         <div>
           {books? books.map((book, i)=> (
             <div key={i} className="bookcard">

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext } from 'react'
 import { Context } from "../context"
 import { Link } from "react-router-dom"
 import { logout } from "../services/auth"
@@ -26,13 +26,13 @@ function Layout({ children }) {
         </div>
         <div>
           <ul>
-            <li className="navicon"><FontAwesomeIcon icon={faAngleDown}/>&nbsp;<img src={user?.profilePhoto} alt="User"/>
+          <li><Link to="/newbook">Agregar libro</Link></li>
+            <li className="navicon"><img src={user?.profilePhoto} alt="User"/>&nbsp;<FontAwesomeIcon icon={faAngleDown}/>
               <ul>
                 <li><Link to="/userconfig">Configuración</Link></li>
-                <li onClick={logoutClick}><Link>Cierra sesión</Link></li>
+                <li onClick={logoutClick}><Link>Cerrar sesión</Link></li>
               </ul>
             </li>
-            
           </ul>
         </div>
       </nav>

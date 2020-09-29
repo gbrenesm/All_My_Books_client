@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { addBookShelf, getUserShelves, removeBookShelf } from "../services/shelves"
 import useInput from "../hooks/useInput"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faPlus, faTrash } from "@fortawesome/free-solid-svg-icons"
+
+
 
 function ShelvesInBook({shelves, bookId, setNewShelf}) {
   const nameIpunt = useInput("")
@@ -38,32 +42,28 @@ function ShelvesInBook({shelves, bookId, setNewShelf}) {
   }, [])
 
   return (
-    <div>
-      
-    {!showAddShelf && 
+    <div className="bookshelves">
+      <p><b>Estantes:</b></p>
       <div>
-        {shelves? shelves.map((e, i)=>(
-          <>
-            <p>{e.name}</p>
-            <button onClick={() => removeBook(e._id)}>Quitar estante</button>
-          </>
-        ))
-       
-    : <p>Aún no tienes estantes</p>}
-    <button onClick={formatAddShelf}>Añade el libro a un estante</button>
-    </div>}
-       
-    {showAddShelf && 
-    <form onSubmit={submitForm}>
-      <label>Añade a un estante</label>
-      <select required name="shelf" {...nameIpunt}>
-        <option value="" selected>Selecciona un estante</option>
-        {allUserShelves?.map((e, i) => (
-          <option value={e._id}> {e.name}</option>
+        {shelves?.map((e, i)=>(
+          <div>
+            <p key={i}>{e.name}</p>
+            <button onClick={() => removeBook(e._id)}><FontAwesomeIcon icon={faTrash}/>&nbsp;Quitar</button>
+          </div>
         ))}
-      </select>
-        <button type="submit">Añade libro</button>
-    </form>}
+      </div>
+      {!showAddShelf && <button onClick={formatAddShelf}> <FontAwesomeIcon icon={faPlus}/> Añade el libro a un estante</button>}
+      {showAddShelf && 
+        <form onSubmit={submitForm}>
+          <select required name="shelf" {...nameIpunt}>
+            <option value="" selected>Selecciona un estante</option>
+            {allUserShelves?.map((e, i) => (
+              <option value={e._id}> {e.name}</option>
+            ))}
+          </select>
+          <button type="submit">Añade libro</button>
+          <button onClick={formatAddShelf}>Cancelar</button>
+        </form>}
     </div>
   )
 }

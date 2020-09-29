@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react"
 import { Context } from "../context"
 import useInput from "../hooks/useInput"
-import { signup, login } from "../services/auth"
+import { signup, login, googleLogin } from "../services/auth"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faGoogle, faFacebookF } from "@fortawesome/free-brands-svg-icons"
 import { Link } from "react-router-dom"
@@ -38,6 +38,11 @@ function Home ({ history }) {
     else {history.push("/userhome")}
     ctxUser(user)
   }
+
+  async function loginWithGoogle(){
+    const user = await googleLogin()
+    ctxUser(user)
+  } 
 
   function changeLogin(){
     if (signupForm) setsignupForm(false)
@@ -76,8 +81,8 @@ function Home ({ history }) {
             <button type="submit">Crea tu cuenta</button>
           </form>
           <div>
-            <Link><FontAwesomeIcon icon={faGoogle} /> &nbsp;Google</Link>
-            <Link><FontAwesomeIcon icon={faFacebookF} /> Facebook</Link>
+            <Link onClick={loginWithGoogle}><FontAwesomeIcon icon={faGoogle} /> &nbsp;Google</Link>
+            <Link><FontAwesomeIcon icon={faFacebookF} />&nbsp;Facebook</Link>
           </div>
           <hr/>
           <div className="signupbtn">
@@ -96,8 +101,8 @@ function Home ({ history }) {
             {error && <p>{errorMesagge}</p>}
           </form>
           <div>
-            <Link><FontAwesomeIcon icon={faGoogle} /> &nbsp;Google</Link>
-            <Link><FontAwesomeIcon icon={faFacebookF} /> Facebook</Link>
+            <Link onClick={loginWithGoogle}><FontAwesomeIcon icon={faGoogle} /> &nbsp;Google</Link>
+            <Link><FontAwesomeIcon icon={faFacebookF} />&nbsp;Facebook</Link>
           </div>
           <hr/>
           <div>

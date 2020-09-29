@@ -11,7 +11,7 @@
   --blue: rgba(41, 120, 160, 1);
   --bluelight: rgba(41, 120, 160, .6);
   --green: rgba(168, 198, 134, 1);
-  --greenlight: rgba(168, 198, 134, .6);
+  --greenlight: rgba(168, 198, 134, .8);
   --greendark: #588157;
   --red: rgb(167, 29, 49);
 }
@@ -182,7 +182,7 @@ nav{
   align-items: center;
   position: fixed;
   width: 100%;
-  height: 60px;
+  height: 45px;
 }
 
 nav a{
@@ -202,14 +202,12 @@ nav div:nth-child(1) p{
 nav ul{
   display: flex;
   justify-content: flex-end;
-  margin-right: 5vw;
   align-items: center;
-
 }
 
 nav ul li{
   list-style: none;
-  margin: 0;
+  margin: 0 40px;
 }
 
 nav div:nth-child(2){
@@ -218,7 +216,9 @@ nav div:nth-child(2){
 
 nav ul img{
   width: 40px;
+  height: 40px;
   border-radius: 50%;
+  object-fit: cover;
 }
 
 .navicon{
@@ -231,7 +231,7 @@ nav ul li ul{
   display: none;
   position: absolute;
   right: .2vw;
-  top: 70px;
+  top: 60px;
   padding: 3vh 1vw;
 }
 
@@ -251,16 +251,66 @@ ul li ul:hover {
   justify-content: space-between;
 }
 
+/* Side bar for shelves*/
+
 .userhome>div:nth-child(1){
   background-color: var(--greenlight);
-  padding: 4vw;
-  width: 15%;
+  padding: 2%;
+  width: 20%;
   color: white;
-  min-height: 50vh;
+  min-height: 85vh;
+}
+
+.userhome>div:nth-child(1) h2{
+  font: 40px 'Baloo Tammudu 2', cursive;
+  margin: 0;
+  height: 75px;
+}
+
+.userhome>div:nth-child(1) button{
+  background-color: var(--greendark);
+  color: white;
+  border: none;
+  border-radius: 15px;
+  padding: 10px;
+}
+
+.userhome>div:nth-child(1) form input{
+  width: 90%;
+  margin: 10px 0;
+  font-size: 16px;
+}
+
+.userhome>div:nth-child(1) form label{
+  font-size: 20px;
+}
+
+.userhome>div:nth-child(1) form button:nth-child(4){
+  background-color: var(--red);
+  margin-left: 20px;
 }
 
 .userhome>div:nth-child(1) li{
   list-style: none;
+  margin: 10px
+}
+.userhome>div:nth-child(1) ul{
+  padding: 0;
+}
+
+.userhome>div:nth-child(1) li a{
+  color: white;
+  text-decoration: none;
+}
+
+.userhome>div:nth-child(2)>button{
+  background-color: var(--greendark);
+  width: 10vw;
+  border: none;
+  border-radius: 15px;
+  color: white;
+  padding: 10px;
+  margin: 10px;
 }
 
 /* User's home book's cards */
@@ -270,7 +320,7 @@ ul li ul:hover {
   width: 80%;
 }
 
-.userhome>div:nth-child(2)>div:nth-child(2){
+.userhome>div:nth-child(2)>div:nth-child(1){
   display: flex;
   flex-wrap: wrap;
 
@@ -404,6 +454,35 @@ ul li ul:hover {
   font-size: 20px;
 }
 
+.bookshelves button{
+  background-color: var(--greendark);
+  border: none;
+  color: white;
+  padding: 8px;
+  border-radius: 15px;
+  margin: 10px auto;
+}
+
+.bookshelves>div:nth-child(2) div{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 90%;
+  margin: 10px 0;
+}
+
+.bookshelves>div:nth-child(2) div button{
+  background-color: var(--red);
+  padding: 6px 15px;
+  height: 30px;
+  margin: 0;
+}
+
+.bookshelves>div:nth-child(2) p{
+  font-size: 18px;
+  margin: 0;
+}
+
 /* Notes book's card */
 .notesbook{
   padding: 3vw;
@@ -450,12 +529,14 @@ ul li ul:hover {
 
 /* Format for new note and quote */
 
-.newnoteformat button{
+.newnoteformat button, 
+.newbook button{
   background-color:var(--greendark);
   color: white;
   padding: 10px;
   border-radius: 15px;
   width: 15vw;
+  border: none;
 }
 
 .newnoteformat form{
@@ -506,8 +587,38 @@ ul li ul:hover {
 /* New book */
 
 .newbook{
-  padding-top: 60px
+  padding: 100px;
+  width: 50%;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+  margin: 0  auto;
 }
+
+.newbook h2{
+  font: 35px 'Baloo Tammudu 2', cursive;
+  height: 40px;
+}
+
+.newbook form{
+  font-size: 20px;
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  margin: auto;
+}
+
+.newbook input,
+.newbook textarea{
+  width: 100%;
+  font-size: 16px;
+  margin: 10px 0; 
+}
+
+.newbook select{
+  margin: 10px ;
+  font-size: 16px;  
+}
+
+
 
 /* Edit book */
 
