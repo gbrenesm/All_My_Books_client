@@ -5,6 +5,7 @@ import { signup, login, googleLogin } from "../services/auth"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faGoogle, faFacebookF } from "@fortawesome/free-brands-svg-icons"
 import { Link } from "react-router-dom"
+import swal from "sweetalert"
 
 function Home ({ history }) {
   const { ctxUser } = useContext(Context)
@@ -12,18 +13,23 @@ function Home ({ history }) {
   const emailInput = useInput("")
   const passwordInput = useInput("")
   const [signupForm, setsignupForm] = useState(true)
-  const [error, setError] = useState(false)
-  const [errorMesagge, setErrorMesagge] = useState("")
 
   async function submitFormSignup(e){
     e.preventDefault()
     const username = usernameInput.value
     const email = emailInput.value
     const password = passwordInput.value
-    await signup({username, email, password}).catch(err => {
+    await signup({username, email, password})
+    .catch(err => {
       console.dir(err.response.data.message)
-      notificationError(err.response.data.message)})
-    if (error) setsignupForm(false)
+      swal({
+        title: "Vuelve a intentar",
+        text: err.response.data.message, 
+        type: "error",
+        icon: "error",
+        className: "alert"
+      })})
+    .then(setsignupForm(false))
   }
 
   async function submitFormLogin(e){
@@ -32,13 +38,17 @@ function Home ({ history }) {
     const password = passwordInput.value
     const user = await login({email, password}).catch(err => {
       console.dir(err.response.data.message)
-      notificationError(err.response.data.message)
-    })
-    if (error) console.log("Hay un error")
-    else {history.push("/userhome")}
+      swal({
+        title: "Vuelve a intentar",
+        text: err.response.data.message, 
+        type: "error",
+        icon: "error",
+        className: "alert"
+      })})
+    history.push("/userhome")
     ctxUser(user)
   }
-
+  
   async function loginWithGoogle(){
     const user = await googleLogin()
     ctxUser(user)
@@ -49,10 +59,6 @@ function Home ({ history }) {
     else setsignupForm(true)
   }
 
-  const notificationError = (message) =>{
-    setError(true)
-    setErrorMesagge(message)
-  }
 
   return(
     <div className="homepage">
@@ -77,11 +83,10 @@ function Home ({ history }) {
             <br/>
             <input required type="password" name="password" id="password" {...passwordInput}/>
             <br/>
-          {error && <p>{errorMesagge}</p>}
             <button type="submit">Crea tu cuenta</button>
           </form>
           <div>
-            <Link onClick={loginWithGoogle}><FontAwesomeIcon icon={faGoogle} /> &nbsp;Google</Link>
+            <a href="http://localhost:3000/auth/google"><FontAwesomeIcon icon={faGoogle} /> &nbsp;Google</a>
             <Link><FontAwesomeIcon icon={faFacebookF} />&nbsp;Facebook</Link>
           </div>
           <hr/>
@@ -98,7 +103,7 @@ function Home ({ history }) {
             <label>Contraseña</label>
             <input required type="password" name="password" id="password" {...passwordInput}/>
             <button type="submit">Inicia sesión</button>
-            {error && <p>{errorMesagge}</p>}
+
           </form>
           <div>
             <Link onClick={loginWithGoogle}><FontAwesomeIcon icon={faGoogle} /> &nbsp;Google</Link>

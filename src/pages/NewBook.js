@@ -10,6 +10,8 @@ function NewBook({ history }) {
   const titleInput = useInput("")
   const authorFirstNameInput = useInput("")
   const authorLastNameInput = useInput("")
+  const coAuthorFirstNameInput = useInput("")
+  const coAuthorLastNameInput = useInput("")
   const publisherInput = useInput("")
   const publishedInput = useInput("")
   const editionInput = useInput("")
@@ -19,6 +21,12 @@ function NewBook({ history }) {
   const formatInput = useInput("")
   const descriptionInput = useInput("")
   const [imageURL, setImageURL] = useState("https://res.cloudinary.com/dxncdwsau/image/upload/v1601179377/All%20My%20Books/All_My_Books_fwa6ma.jpg")
+  const [coauthor, setcoauthor] = useState(false)
+
+  function moreAuthors(){
+    if (!coauthor) setcoauthor(true)
+    else setcoauthor(false)
+  }
 
   async function uploadCover({ target: { files } }){
     const data = new FormData()
@@ -34,6 +42,8 @@ function NewBook({ history }) {
       title: titleInput.value,
       authorFirstName: authorFirstNameInput.value,
       authorLastName: authorLastNameInput.value,
+      coAuthorFirstName:coAuthorFirstNameInput.value,
+      coAuthorLastName: coAuthorLastNameInput.value,
       publisher: publisherInput.value,
       published: publishedInput.value,
       edition: editionInput.value,
@@ -63,6 +73,20 @@ function NewBook({ history }) {
           <label>Apellido del autor(a):</label>
           <input type="text" name="author" id="author" {...authorLastNameInput}/>
         </div>
+        <div>
+          {!coauthor && <button onClick={moreAuthors}>Agrega otro autor(a)</button>}
+        </div>
+        {coauthor && 
+          <>
+          <div>
+            <label>Nombre del coautor(a):</label>
+            <input type="text" name="author" id="author" {...coAuthorFirstNameInput}/>
+          </div>
+          <div>
+            <label>Apellido del coautor(a):</label>
+            <input type="text" name="author" id="author" {...coAuthorLastNameInput}/>
+          </div>
+          </>}
         <div>
           <label>Editorial:</label>
           <input type="text" name="publisher" id="publisher" {...publisherInput}/>

@@ -118,10 +118,11 @@ function UserConfig() {
         <input required type="text" name="username" id="username" {...usernameInput}/>
         <br/>
         <label>Email: </label>
-        <input type="text" name="email" id="email" {...emailInput}/>
+        <input required type="text" name="email" id="email" {...emailInput}/>
         <label>Foto de perfil: </label>
         <input type="file" onChange={uploadPhoto}/>
-        <button type="submit">Editar libro</button>
+        <button type="submit">Editar</button>
+        <button onClick={editForm}>Cancelar</button>
       </form>
         </> : <></>}
     </div>

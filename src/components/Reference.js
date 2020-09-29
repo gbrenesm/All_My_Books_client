@@ -1,7 +1,6 @@
 import React, {useState} from 'react'
 
 function Reference({bookData}) {
-  //console.log(bookData)
   const [referenceAPA, setReferenceAPA] = useState(false)
   const [referenceMLA, setReferenceMLA] = useState(false)
   const [referenceChicago, setReferenceChicago] = useState(false)
@@ -12,7 +11,6 @@ function Reference({bookData}) {
     setReferenceMLA(false)
     setReferenceChicago(false)
     setReferenceUNEISO(false)
-    console.log(bookData.publisher)
   }
 
   function showMLA(){
@@ -50,10 +48,10 @@ function Reference({bookData}) {
         <label for="UNE-ISO 690">UNE-ISO 690 </label>
       </div>
       <div>
-        {referenceAPA && <p>{bookData.authorLastName? bookData.authorLastName : "Apellido"}, {bookData.authorFirstName? bookData.authorFirstName.charAt(0) : "Iniciales"}. ({bookData.published? bookData.published.slice(0, 4) : "Año de publicación"}). <em>{bookData.title}</em>. {bookData.publisher === ""? bookData.publisher : "Editorial"}</p>}
-        {referenceMLA && <p>{bookData.authorLastName? bookData.authorLastName : "Apellido"}, {bookData.authorFirstName? bookData.authorFirstName : "Nombre"}. <em>{bookData.title}</em>. {bookData.publishPlace? bookData.publishPlace : "Lugar de publicación"}: {bookData.publisher === ""? bookData.publisher : "Editorial"}, {bookData.published? bookData.published.slice(0, 4) : "Año de publicación"}. </p>}
-        {referenceChicago && <p>{bookData.authorLastName? bookData.authorLastName : "Apellido"}, {bookData.authorFirstName? bookData.authorFirstName : "Nombre"}. <em>{bookData.title}</em>. {bookData.publishPlace? bookData.publishPlace : "Lugar de publicación"}: {bookData.publisher === ""? bookData.publisher : "Editorial"}, {bookData.published? bookData.published.slice(0, 4) : "Año de publicación"}. </p>}
-  {referenceUNEISO && <p>{bookData.authorLastName? bookData.authorLastName.toUpperCase() : "Apellido"}, {bookData.authorFirstName? bookData.authorFirstName : "Nombre"}. <em>{bookData.title}.</em> {bookData.publishPlace? bookData.publishPlace : "Lugar de publicación"}: {bookData.publisher === ""? bookData.publisher : "Editorial"}, {bookData.published? bookData.published.slice(0, 4) : "Año de publicación"}. ISBN: {bookData.ISBN? bookData.ISBN : "ISBN"}</p>}
+        {referenceAPA && <p>{bookData.authorLastName? bookData.authorLastName : "Apellido"}, {bookData.authorFirstName? bookData.authorFirstName.charAt(0) : "Iniciales"}. ({bookData.published? bookData.published.slice(0, 4) : "Año de publicación"}). <em>{bookData.title}</em>. {bookData.publisher === []? "Editorial": bookData.publisher}</p>}
+        {referenceMLA && <p>{bookData.authorLastName? bookData.authorLastName : "Apellido"}, {bookData.authorFirstName? bookData.authorFirstName : "Nombre"}. <em>{bookData.title}</em>. {bookData.publishPlace? bookData.publishPlace : "Lugar de publicación"}: {bookData.publisher === []? "Editorial": bookData.publisher}, {bookData.published? bookData.published.slice(0, 4) : "Año de publicación"}. </p>}
+        {referenceChicago && <p>{bookData.authorLastName? bookData.authorLastName : "Apellido"}, {bookData.authorFirstName? bookData.authorFirstName : "Nombre"}. <em>{bookData.title}</em>. {bookData.publishPlace? bookData.publishPlace : "Lugar de publicación"}: {bookData.publisher === []? "Editorial": bookData.publisher}, {bookData.published? bookData.published.slice(0, 4) : "Año de publicación"}. </p>}
+  {referenceUNEISO && <p>{bookData.authorLastName? bookData.authorLastName.toUpperCase() : "Apellido"}, {bookData.authorFirstName? bookData.authorFirstName : "Nombre"}. <em>{bookData.title}.</em> {bookData.publishPlace? bookData.publishPlace : "Lugar de publicación"}: {bookData.publisher === []? "Editorial": bookData.publisher}, {bookData.published? bookData.published.slice(0, 4) : "Año de publicación"}. ISBN: {bookData.ISBN? bookData.ISBN : "ISBN"}</p>}
       </div>
     </div>
   )

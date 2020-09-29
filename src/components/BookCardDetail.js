@@ -6,7 +6,7 @@ import axios from "axios"
 import useInput from "../hooks/useInput"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import {faEdit, faTrashAlt } from "@fortawesome/free-solid-svg-icons"
-
+import swal from "@sweetalert/with-react"
 
 function BookCardDetail({book, setUpdateBook, bookShelves, bookId, setNewShelf}) {
   const [showForm, setShowForm] = useState(false)
@@ -14,6 +14,8 @@ function BookCardDetail({book, setUpdateBook, bookShelves, bookId, setNewShelf})
   const titleInput = useInput(book.title)
   const authorFirstNameInput = useInput(book.authorFirstName)
   const authorLastNameInput = useInput(book.authorLastName)
+  const coAuthorFirstNameInput = useInput(book.coAuthorFirstName)
+  const coAuthorLastNameInput = useInput(book.coAuthorLastName)
   const publisherInput = useInput(book.publisher)
   const publishedInput = useInput(book.published)
   const editionInput = useInput(book.edition)
@@ -23,8 +25,22 @@ function BookCardDetail({book, setUpdateBook, bookShelves, bookId, setNewShelf})
   const formatInput = useInput("")
   const descriptionInput = useInput(book.description)
   const [coverURL, setCoverURL] = useState(book.cover)
+  const [coauthor, setcoauthor] = useState(false)
 
-  async function eliminateBook(){
+
+  function eliminateBook(){
+    swal({
+      title:"Eliminar",
+      contetnt: <p>"¿Estás seguro(a) de que quieres eliminar el libro?"</p>,
+      buttons: ["Cancelar", "Confirmar"]
+    }).then(response => {
+      if (response){
+        confirmEliminate()
+      }
+    })
+  }
+
+  async function confirmEliminate(){
     await deleteBook(book._id)
     history.push("/userhome")
   }
@@ -32,6 +48,11 @@ function BookCardDetail({book, setUpdateBook, bookShelves, bookId, setNewShelf})
   function editForm(){
     if (!showForm) setShowForm(true)
     else setShowForm(false)
+  }
+
+  function moreAuthors(){
+    if (!coauthor) setcoauthor(true)
+    else setcoauthor(false)
   }
 
   async function uploadCover({ target: { files } }){
@@ -49,6 +70,8 @@ function BookCardDetail({book, setUpdateBook, bookShelves, bookId, setNewShelf})
       title: titleInput.value,
       authorFirstName: authorFirstNameInput.value,
       authorLastName: authorLastNameInput.value,
+      coAuthorFirstName:coAuthorFirstNameInput.value,
+      coAuthorLastName: coAuthorLastNameInput.value,
       publisher: publisherInput.value,
       published: publishedInput.value,
       edition: editionInput.value,
@@ -80,6 +103,7 @@ function BookCardDetail({book, setUpdateBook, bookShelves, bookId, setNewShelf})
         <div>
           <h2>{book.title}</h2>
           <h3>{book.authorFirstName} {book.authorLastName}</h3>
+          <h3>{book.coAuthorFirstName} {book.coAuthorLastName}</h3>
           <p><b>Editorial:</b> {book.publisher}</p>
           <p><b>Año de publicación:</b> {book.published?.slice(0,4)}</p>
           <p><b>Lugar de publicación:</b> {book.publishPlace}</p>
@@ -117,6 +141,20 @@ function BookCardDetail({book, setUpdateBook, bookShelves, bookId, setNewShelf})
         <label>Apellido del autor(a)</label>
         <input type="text" name="authorLastName" id="authorLastName" {...authorLastNameInput}/>
         <br/>
+        <div>
+        {!coauthor && <button onClick={moreAuthors}>Agrega otro autor(a)</button>}
+        </div>
+        {coauthor && 
+          <>
+          <div>
+            <label>Nombre del coautor(a):</label>
+            <input type="text" name="author" id="author" {...coAuthorFirstNameInput}/>
+          </div>
+          <div>
+            <label>Apellido del coautor(a):</label>
+            <input type="text" name="author" id="author" {...coAuthorLastNameInput}/>
+          </div>
+          </>}
         <label>Editorial</label>
         <input type="text" name="publisher" id="publisher" {...publisherInput}/>
         <br/>
