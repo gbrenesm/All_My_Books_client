@@ -5,43 +5,45 @@ import { createShelf, getOneShelf } from "../services/shelves"
 import useInput from "../hooks/useInput"
 import Loader from "../components/Loader"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faBook, faPlus, faSearch } from "@fortawesome/free-solid-svg-icons"
+import { faBook, faPlus, faSearch, faChevronLeft } from "@fortawesome/free-solid-svg-icons"
 
 function UserHome() {
   const [books, setBooks] = useState(null)
   const [shelves, setShelves] = useState(null)
   const [changePage, setChangePage] = useState(false)
-  const [elemPages, setElemPages] = useState(12)
-  const [cutElem, setCutElem] = useState(0)
-  const [lessBtn, setLessbtn] = useState(false)
-  const [moreBtn, setMoreBtn] = useState(false)
+  // const [elemPages, setElemPages] = useState(12)
+  // const [cutElem, setCutElem] = useState(0)
+  // const [lessBtn, setLessbtn] = useState(false)
+  // const [moreBtn, setMoreBtn] = useState(false)
+  const [searchOn, setSearchOn] = useState(false)
   const [showNewShelf, setShowNewShelf] = useState(false)
   const [newShlef, setNewShlef] = useState(false)
   const nameInput = useInput("")
   const searchInput = useInput("")
 
-  function pagesBtn(){
+  // function pagesBtn(){
     
-  }
+  // }
 
-  function pagintationMore(){
-    setCutElem(cutElem + 12)
-    setElemPages(elemPages + 12)
-    setChangePage(true)
-    setLessbtn(true)
-  }
+  // function pagintationMore(){
+  //   setCutElem(cutElem + 12)
+  //   setElemPages(elemPages + 12)
+  //   setChangePage(true)
+  //   setLessbtn(true)
+  // }
 
-  function pagintationLess(){
-    setCutElem(cutElem - 12)
-    setElemPages(elemPages - 12)
-    setChangePage(true)
-  }
+  // function pagintationLess(){
+  //   setCutElem(cutElem - 12)
+  //   setElemPages(elemPages - 12)
+  //   setChangePage(true)
+  // }
 
   async function fetchAllBooks() {
     const userbooks = await getAllUsersBooks()
     setBooks(userbooks.user.books)
     setShelves(userbooks.user.shelves)
-    if (userbooks.user.books.length >= 12) setMoreBtn(true)
+    // if (userbooks.user.books.length >= 12) setMoreBtn(true)
+    setSearchOn(false)
   }
 
   async function fetchBookByShelf(shelfId){
@@ -65,6 +67,7 @@ function UserHome() {
 
   function submitSearch(e){
     e.preventDefault()
+    setSearchOn(true)
     setBooks(books.filter(book => book.title.toLowerCase().includes(searchInput.value.toLowerCase()) ||
                                   book.authorFirstName.toLowerCase().includes(searchInput.value.toLowerCase()) ||
                                   book.authorLastName.toLowerCase().includes(searchInput.value.toLowerCase())))
@@ -104,12 +107,16 @@ function UserHome() {
       </div>
       <div>
         <form onChange={submitSearch} onSubmit={submitSearch} className="search">
+        <button onClick={fetchAllBooks} className="returnBtutton"><FontAwesomeIcon icon={faChevronLeft}/></button>
         <input type="text" className="searchTerm" placeholder="Busca por autor(a) o título" {...searchInput}/>
         <button className="searchButton"><FontAwesomeIcon icon={faSearch}/></button>
         </form>
         <div>
-          <button onClick={fetchBooksByAuthor}>Ver por autor</button>
-          <button onClick={fetchAllBooks}>Ver por título</button>
+        {!searchOn &&
+          <>
+          <button className="sortButton" onClick={fetchBooksByAuthor}>Ver por autor</button>
+          <button className="sortButton" onClick={fetchAllBooks}>Ver por título</button>
+          </>}
         </div>
         <div>
           {books? books.map((book, i)=> (
@@ -128,8 +135,8 @@ function UserHome() {
           : <Loader></Loader>}
           {books === [] && <p>Aún no tienes libros</p>}
         </div>
-          {lessBtn && <button onClick={pagintationLess}>Regresa</button>}
-          {moreBtn && <button onClick={pagintationMore}>Ver más libros</button>}
+          {/* {lessBtn && <button onClick={pagintationLess}>Regresa</button>}
+          {moreBtn && <button onClick={pagintationMore}>Ver más libros</button>} */}
       </div>
     </div>
   )

@@ -20,7 +20,7 @@ function NewBook({ history }) {
   const pagesInput = useInput("")
   const formatInput = useInput("")
   const descriptionInput = useInput("")
-  const [imageURL, setImageURL] = useState("https://res.cloudinary.com/dxncdwsau/image/upload/v1601179377/All%20My%20Books/All_My_Books_fwa6ma.jpg")
+  const [imageURL, setImageURL] = useState(null)
   const [coauthor, setcoauthor] = useState(false)
 
   function moreAuthors(){
@@ -28,12 +28,21 @@ function NewBook({ history }) {
     else setcoauthor(false)
   }
 
+  function defaultImage(){
+    setImageURL("https://res.cloudinary.com/dxncdwsau/image/upload/v1601179377/All%20My%20Books/All_My_Books_fwa6ma.jpg")
+  }
+
   async function uploadCover({ target: { files } }){
-    const data = new FormData()
-    data.append("file", files[0])
-    data.append("upload_preset", "all_my_books")
-    const { data: { secure_url } } = await axios.post("http://api.cloudinary.com/v1_1/dxncdwsau/image/upload", data)
-    setImageURL(secure_url)
+    try {
+      const data = new FormData()
+      data.append("file", files[0])
+      data.append("upload_preset", "all_my_books")
+      const { data: { secure_url } } = await axios.post("https://api.cloudinary.com/v1_1/dxncdwsau/image/upload", data)
+      console.log(secure_url)
+      setImageURL(secure_url)
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   async function submitForm(e){
@@ -119,10 +128,14 @@ function NewBook({ history }) {
             <input type="text" name="pages" id="pages" placeholder="280" {...pagesInput}/>
           </div>
         </div>
-        <div className="author">
+        <div className="uploadcover">
           <label>Portada: </label>
+          <div>
+            <label for="apa">Selecciona la imagen por defecto</label>
+            <input type="checkbox" name="reference" value="apa" onChange={defaultImage}/>
+          </div>
           <div className="button-wrapper">
-            <span className="label">Agrega un archivo</span>  
+            <span className="label">O agrega un archivo</span>
             <input onChange={uploadCover} type="file" name="upload" id="upload" className="upload-box" placeholder="Upload File"/>
           </div>
         </div>
@@ -141,7 +154,7 @@ function NewBook({ history }) {
         </div>
         
         <div>
-          <button type="submit"><FontAwesomeIcon icon={faBookOpen}/>&nbsp;Crear libro</button>
+          <button disabled={!imageURL} type="submit"><FontAwesomeIcon icon={faBookOpen}/>&nbsp;Crear libro</button>
         </div>
       </form>
     </div>

@@ -4,9 +4,9 @@ import { Link } from "react-router-dom"
 import { updateUser } from "../services/auth"
 import axios from "axios"
 import useInput from "../hooks/useInput"
-import { getUserShelves } from "../services/shelves"
+import { getUserShelves, deleteShelf } from "../services/shelves"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import {faEdit } from "@fortawesome/free-solid-svg-icons"
+import {faEdit, faTrashAlt } from "@fortawesome/free-solid-svg-icons"
 
 function UserConfig() {
   const { user } = useContext(Context)
@@ -15,19 +15,16 @@ function UserConfig() {
   const [photoURL, setPhotoURL] = useState(user?.profilePhoto)
   const [showForm, setShowForm] = useState(false)
   const [shelves, setShelves] = useState(null)
-  const [shelvesConfig, setShelvesConfig] = useState(false)
-  const [showShelvesConfig, setShowShelvesConfig] = useState(false)
-  const shelfNameInput = useInput(shelves?.name)
-
+  const [shelfDeleted, setShelfDeleted] = useState(false)
 
   async function fetchShelves(){
     const shlevesData = await getUserShelves()
     setShelves(shlevesData.shelves.shelves)
   }
 
-  function shelvesForm(){
-    if (!showShelvesConfig) setShowShelvesConfig(true)
-    else setShowShelvesConfig(false)
+  async function deleteShelves(shelfID){
+    await deleteShelf(shelfID)
+    setShelfDeleted(true)
   }
 
   function editForm(){
@@ -58,7 +55,7 @@ function UserConfig() {
 
   useEffect(() => {
     fetchShelves()
-  }, [])
+  }, [shelfDeleted])
 
   return (
     <div className="userProfile">
@@ -71,7 +68,7 @@ function UserConfig() {
           <div>
             <h2>{user.username}</h2>
             <h3>{user.email}</h3>
-            <button onClick={editForm}> <FontAwesomeIcon icon={ faEdit }/>&nbsp;<Link>Editar</Link></button>
+            <button onClick={editForm}><FontAwesomeIcon icon={ faEdit }/>&nbsp;<Link>Editar</Link></button>
           </div>
         </div>: <></>}
         
@@ -99,29 +96,15 @@ function UserConfig() {
         </> : <></>}
       </div>
       <div>
-        {!showShelvesConfig && 
-        <div>
           <p><b>Estantes:</b></p>
           <ul>
-            {shelves? shelves.map((shlef, i) => (
-              <li>{shlef.name}</li>
+            {shelves? shelves.map((shelf, i) => (
+              <>
+              <li key={i}>{shelf.name}</li>
+              <button onClick={()=>{deleteShelves(shelf._id)}}><FontAwesomeIcon icon={ faTrashAlt }/>&nbsp;Eliminar</button> 
+              </>
             )) : <p>Aún no tienes estantes</p>}
           </ul>
-          <button onClick={shelvesForm}>Edita tus estantes</button>
-        </div> }
-        
-        {showShelvesConfig && 
-          <>
-          <form>
-            {shelves?.map((shelf, i) => (
-              <>
-              <label>{shelves.name}</label>
-              <input type="text" name="name" id="name" {...shelfNameInput} />
-              </>
-            ))}
-          </form>
-          <button onClick={shelvesForm}>Cancelar</button>
-          </>}
       </div>
     </div>
   )

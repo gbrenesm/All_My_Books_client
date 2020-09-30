@@ -14,7 +14,6 @@ export const login = async userData => {
   return user
 }
 
-
 export const getCurrentUser = async () => {
   const { data: user } = await service.get("/currentuser")
   return user

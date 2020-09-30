@@ -346,7 +346,6 @@ nav ul li ul li{
   border-right: none;
   padding: 5px;
   height: 20px;
-  border-radius: 15px 0 0 15px;
   outline: none;
   color: #9DBFAF;
 }
@@ -365,6 +364,32 @@ nav ul li ul li{
   border-radius: 0 15px 15px 0;
   cursor: pointer;
   font-size: 20px;
+}
+
+.returnBtutton{
+  width: 40px;
+  height: 36px;
+  border: 1px solid var(--green);
+  background: var(--green);
+  text-align: center;
+  color: #fff;
+  border-radius: 15px 0 0 15px;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.sortButton{
+  background-color: var(--greendark);
+  color: white;
+  border-radius: 15px;
+  border: none;
+  padding: 10px;
+  margin: 10px;
+}
+
+.userhome>div:nth-child(2)>div:nth-child(2){
+  display: flex;
+  justify-content: flex-end;
 }
 
 /* User's home book's cards */
@@ -700,11 +725,15 @@ nav ul li ul li{
   margin: 10px 0;
 }
 
+.newbook button:disabled{
+  background-color: gray;
+}
+
 .file{
   font: 16px 'Nunito Sans', sans-serif;
 }
 
-.button-wrapper {
+/* .button-wrapper {
   position: relative;
   text-align: center;
   margin-bottom: 20px;
@@ -729,6 +758,24 @@ nav ul li ul li{
   top: 0;
   left: 0;
   opacity: 0;
+} */
+
+.uploadcover{
+  margin-bottom: 20px;
+}
+.uploadcover input{
+  width: 40%;
+  margin: 10px;
+}
+
+.uploadcover div:nth-child(2) input{
+  width: auto;
+  background-color: var(--red);
+}
+
+.uploadcover div label,
+.uploadcover div span{
+  font-size: 16px;
 }
 
 .newbook select,

@@ -28,8 +28,7 @@ function Home ({ history }) {
     const username = usernameInput.value
     const email = emailInput.value
     const password = passwordInput.value
-    await signup({username, email, password})
-    .catch(err => {
+    await signup({username, email, password}).catch(err => {
       console.dir(err.response.data.message)
       swal({
         title: "Vuelve a intentar",
@@ -38,7 +37,6 @@ function Home ({ history }) {
         icon: "error",
         className: "alert"
       })})
-    .then(setsignupForm(false))
   }
 
   async function submitFormLogin(e){
@@ -54,8 +52,8 @@ function Home ({ history }) {
         icon: "error",
         className: "alert"
       })})
-    history.push("/userhome")
     ctxUser(user)
+    history.push("/userhome")
   }
   
 
@@ -92,7 +90,7 @@ function Home ({ history }) {
           </form>
           <div>
             <a href={`${baseURL}/auth/google`}><FontAwesomeIcon icon={faGoogle} /> &nbsp;Google</a>
-            <Link><FontAwesomeIcon icon={faFacebookF} />&nbsp;Facebook</Link>
+            <a href={`${baseURL}/auth/facebook`}><FontAwesomeIcon icon={faFacebookF} />&nbsp;Facebook</a>
           </div>
           <hr/>
           <div className="signupbtn">
@@ -111,8 +109,8 @@ function Home ({ history }) {
 
           </form>
           <div>
-            <Link><FontAwesomeIcon icon={faGoogle} /> &nbsp;Google</Link>
-            <Link><FontAwesomeIcon icon={faFacebookF} />&nbsp;Facebook</Link>
+            <a href={`${baseURL}/auth/google`}><FontAwesomeIcon icon={faGoogle} /> &nbsp;Google</a>
+            <a href={`${baseURL}/auth/facebook`}><FontAwesomeIcon icon={faFacebookF} />&nbsp;Facebook</a>
           </div>
           <hr/>
           <div>
