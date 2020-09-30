@@ -40,7 +40,7 @@ function UserConfig() {
     data.append("file", files[0])
     data.append("upload_preset", "all_my_books")
 
-    const { data: { secure_url } } = await axios.post(process.env.REACT_APP_CLOUDINARY_URL, data)
+    const { data: { secure_url } } = await axios.post("http://api.cloudinary.com/v1_1/dxncdwsau/image/upload", data)
     setPhotoURL(secure_url)
   }
 
@@ -62,20 +62,43 @@ function UserConfig() {
 
   return (
     <div className="userProfile">
+      <div>
         {!showForm && user?
+        <div>
+          <div>
+            <img src={user.profilePhoto} alt="Profile"/>
+          </div>
+          <div>
+            <h2>{user.username}</h2>
+            <h3>{user.email}</h3>
+            <button onClick={editForm}> <FontAwesomeIcon icon={ faEdit }/>&nbsp;<Link>Editar</Link></button>
+          </div>
+        </div>: <></>}
+        
+        {showForm && user?
         <>
         <div>
           <div>
             <img src={user.profilePhoto} alt="Profile"/>
           </div>
             <div>
-            <button onClick={editForm}> <FontAwesomeIcon icon={ faEdit }/>&nbsp;<Link>Editar</Link></button>
+            <button onClick={editForm}><Link>Cancelar</Link></button>
           </div>
         </div>
-        <div>
-          <h2>{user.username}</h2>
-          <h3>{user.email}</h3>
-        </div>
+        <form onSubmit={submitForm}>
+        <label>Nombre de usuario: </label>
+        <input required type="text" name="username" id="username" {...usernameInput}/>
+        <br/>
+        <label>Email: </label>
+        <input required type="text" name="email" id="email" {...emailInput}/>
+        <label>Foto de perfil: </label>
+        <input type="file" onChange={uploadPhoto}/>
+        <button type="submit">Editar</button>
+        <button onClick={editForm}>Cancelar</button>
+        </form>
+        </> : <></>}
+      </div>
+      <div>
         {!showShelvesConfig && 
         <div>
           <p><b>Estantes:</b></p>
@@ -99,32 +122,7 @@ function UserConfig() {
           </form>
           <button onClick={shelvesForm}>Cancelar</button>
           </>}
-        
-        
-        </>: <></>}
-        
-        {showForm && user?
-        <>
-        <div>
-          <div>
-            <img src={user.profilePhoto} alt="Profile"/>
-          </div>
-            <div>
-            <button onClick={editForm}><Link>Cancelar</Link></button>
-          </div>
-        </div>
-        <form onSubmit={submitForm}>
-        <label>Nombre de usuario: </label>
-        <input required type="text" name="username" id="username" {...usernameInput}/>
-        <br/>
-        <label>Email: </label>
-        <input required type="text" name="email" id="email" {...emailInput}/>
-        <label>Foto de perfil: </label>
-        <input type="file" onChange={uploadPhoto}/>
-        <button type="submit">Editar</button>
-        <button onClick={editForm}>Cancelar</button>
-      </form>
-        </> : <></>}
+      </div>
     </div>
   )
 }

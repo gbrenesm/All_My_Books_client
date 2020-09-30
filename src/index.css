@@ -8,13 +8,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Baloo+Tammudu+2:wght@400;700&family=Grandstander:ital,wght@0,100;0,400;0,600;0,700;1,100;1,400;1,600;1,700&family=Monda:wght@400;700&family=Nunito+Sans:ital,wght@0,200;0,400;0,700;1,200;1,400;1,700&display=swap');
 
 :root{
-  --blue: rgba(41, 120, 160, 1);
-  --bluelight: rgba(41, 120, 160, .6);
   --green: rgba(168, 198, 134, 1);
   --greenlight: rgba(168, 198, 134, .8);
   --greendark: #588157;
   --red: rgb(167, 29, 49);
-  --bluesearch:  #00B4CC;
+  --boxshadow:  rgba(0, 0, 0, 0.15);
 }
 
 body {
@@ -216,10 +214,12 @@ nav ul{
   align-items: center;
 }
 
-nav ul li{
+nav ul>li{
   list-style: none;
   margin: 0 40px;
+  font-size: 20px;
 }
+
 
 nav div:nth-child(2){
   width: 40%;
@@ -241,9 +241,9 @@ nav ul li ul{
   visibility: hidden;
   display: none;
   position: absolute;
-  right: .2vw;
-  top: 60px;
-  padding: 3vh 1vw;
+  right: 20px;
+  top: 55px;
+  padding: 10px;
 }
 
 ul li:hover > ul,
@@ -252,6 +252,10 @@ ul li ul:hover {
   display: block;
   background-color: var(--green);
   border-radius: 2px;
+}
+
+nav ul li ul li{
+  margin: 0;
 }
 
 /* User's home */
@@ -381,7 +385,7 @@ ul li ul:hover {
   border-radius: 10px;
   overflow: hidden;
   margin: 1vw;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 2px 5px var(--boxshadow);
   height: 450px;
 }
 
@@ -429,7 +433,7 @@ ul li ul:hover {
 .bookDetailCard{
   width: 90%;
   margin: auto;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 2px 5px var(--boxshadow);
   border-radius: 15px;
   display: flex;
   height: auto;
@@ -496,7 +500,7 @@ ul li ul:hover {
 }
 
 .bookDetailCard h3{
-  margin: 0;
+  margin: 8px 0;
   font-size: 25px;
 }
 
@@ -508,9 +512,12 @@ ul li ul:hover {
   background-color: var(--greendark);
   border: none;
   color: white;
-  padding: 8px;
+  padding: 8px 15px;
   border-radius: 15px;
-  margin: 10px auto;
+  margin: 10px;
+}
+.cancel{
+  background-color: var(--red);
 }
 
 .bookshelves>div:nth-child(2) div{
@@ -561,7 +568,7 @@ ul li ul:hover {
 }
 
 .onenotecard{
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 2px 5px var(--boxshadow);
   border-radius: 15px;
   padding: 10px 25px;
   margin-top: 10px;
@@ -637,9 +644,9 @@ ul li ul:hover {
 /* New book */
 
 .newbook{
-  padding: 100px;
+  padding: 70px 100px;
   width: 50%;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 2px 5px var(--boxshadow);
   margin: 0  auto;
 }
 
@@ -659,25 +666,173 @@ ul li ul:hover {
 .newbook input,
 .newbook textarea{
   width: 100%;
-  font-size: 16px;
-  margin: 10px 0; 
+  font: 16px 'Nunito Sans', sans-serif;
+  margin: 8px 0 20px; 
+  color: var(--greendark);
+  padding: 4px;
+}
+
+.newbook input:focus,
+.newbook textarea:focus{
+  color: black;
 }
 
 .newbook select{
-  margin: 10px ;
-  font-size: 16px;  
+  margin: 10px;
+  font-size: 16px;
+}
+
+.author{
+  display: flex;
+  flex-wrap: wrap
+}
+
+.author div{
+  width: 48%;
+}
+.author div:nth-child(1){
+  margin-right: 4%;
+}
+
+.newbook div:nth-child(3) button{
+  padding: 8px 10px;
+  float: right;
+  width: auto;
+  margin: 10px 0;
+}
+
+.file{
+  font: 16px 'Nunito Sans', sans-serif;
+}
+
+.button-wrapper {
+  position: relative;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.button-wrapper span.label {
+  position: relative;
+  z-index: 0;
+  display: inline-block;
+  width: 60%;
+  background:var(--greendark);
+  color: #fff;
+  padding: 6px 10px ;
+  font: 14px 'Nunito Sans', sans-serif;
+  border-radius: 15px;
+}
+
+#upload {
+  display: inline-block;
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  opacity: 0;
+}
+
+.newbook select,
+.updatebook select,
+.bookshelves select{
+  font: 14px 'Nunito Sans', sans-serif;
+}
+
+.newbook option,
+.bookshelves option{
+  font: 14px 'Nunito Sans', sans-serif;
 }
 
 
+/* Update book form */
 
-/* Edit book */
+.updatebook label{
+  font: 18px 'Nunito Sans', sans-serif;
+  margin: 8px;
+  font-weight: bold;
+}
 
-.editbook{
-  padding-top: 60px
+.updatebook input,
+.updatebook textarea{
+  padding: 1px;
+  height: auto;
+  font: 16px 'Nunito Sans', sans-serif;
+  margin: 10px;
+}
+
+.updatebook select{
+  width: 50%;
+  font: 16px 'Nunito Sans', sans-serif
+}
+.updatebook{
+  display: flex
+}
+
+.updatebook>div:nth-child(1){
+  width: 50%;
+  margin-top: 10px;
+}
+
+.updatebook>div:nth-child(2){
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+}
+
+.updatebook>div:nth-child(2) div{
+  display: flex;
+  justify-content: space-between;
+}
+
+.updatebookupload{
+  width: 60%;
+}
+
+.updatebook>div:nth-child(2) button a{
+  color: white;
+  text-decoration: none;
+}
+
+.updatebook>div:nth-child(2) button{
+  padding: 5px 10px;
+  border-radius: 15px;
+  width: 40%;
+  border: none;
+  margin: 0 10px;
+  float: right;
+  background-color: var(--greendark);
+}
+
+.updatebook>div:nth-child(2) button:nth-child(2){
+  background-color: var(--red);
 }
 
 /* Edit user */
 
 .userProfile{
-  padding-top: 120px
+  padding-top: 120px;
+  display: flex;
+  width: 80%;
+  margin: 0 auto;
+  box-shadow: 0 2px 5px var(--boxshadow);
+  border-radius: 15px;
+  justify-content: space-between;
+}
+
+.userProfile>div{
+  width: 45%;
+  padding: 0 40px;
+}
+.userProfile>div:nth-child(1)>div:nth-child(1)>div:nth-child(1){
+  width: 80%;
+  height: 40%;
+  border-radius: 15px;
+  overflow: hidden;
+  padding: 0;
+}
+
+.userProfile img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }

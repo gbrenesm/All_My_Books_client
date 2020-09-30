@@ -52,7 +52,7 @@ function ShelvesInBook({shelves, bookId, setNewShelf}) {
           </div>
         ))}
       </div>
-      {!showAddShelf && <button onClick={formatAddShelf}> <FontAwesomeIcon icon={faPlus}/> Añade el libro a un estante</button>}
+      {!showAddShelf && <button onClick={formatAddShelf}> <FontAwesomeIcon icon={faPlus}/>&nbsp;&nbsp; Añade el libro a un estante</button>}
       {showAddShelf && 
         <form onSubmit={submitForm}>
           <select required name="shelf" {...nameIpunt}>
@@ -62,7 +62,7 @@ function ShelvesInBook({shelves, bookId, setNewShelf}) {
             ))}
           </select>
           <button type="submit">Añade libro</button>
-          <button onClick={formatAddShelf}>Cancelar</button>
+          <button className="cancel" onClick={formatAddShelf}>Cancelar</button>
         </form>}
     </div>
   )

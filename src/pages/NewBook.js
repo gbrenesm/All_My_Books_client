@@ -3,7 +3,7 @@ import { createBook } from "../services/books"
 import useInput from "../hooks/useInput"
 import axios from "axios"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faBookOpen } from "@fortawesome/free-solid-svg-icons"
+import { faBookOpen,faPlus } from "@fortawesome/free-solid-svg-icons"
 
 
 function NewBook({ history }) {
@@ -32,7 +32,7 @@ function NewBook({ history }) {
     const data = new FormData()
     data.append("file", files[0])
     data.append("upload_preset", "all_my_books")
-    const { data: { secure_url } } = await axios.post(process.env.REACT_APP_CLOUDINARY_URL, data)
+    const { data: { secure_url } } = await axios.post("http://api.cloudinary.com/v1_1/dxncdwsau/image/upload", data)
     setImageURL(secure_url)
   }
 
@@ -63,57 +63,68 @@ function NewBook({ history }) {
       <form onSubmit={submitForm}>
         <div>
           <label>Título:</label>
-          <input required type="text" name="title" id="title" {...titleInput}/>
+          <input autoFocus required type="text" name="title" id="title" placeholder="Frankenstein o el moderno Prometeo" {...titleInput}/>
+        </div>
+        <div className="author">
+          <div>
+            <label>Nombre del autor(a):</label>
+            <input type="text" name="author" id="author" placeholder="Mary" {...authorFirstNameInput}/>
+          </div>
+          <div>
+            <label>Apellido del autor(a):</label>
+            <input type="text" name="author" id="author" placeholder="Shelley" {...authorLastNameInput}/>
+          </div>
         </div>
         <div>
-          <label>Nombre del autor(a):</label>
-          <input type="text" name="author" id="author" {...authorFirstNameInput}/>
-        </div>
-        <div>
-          <label>Apellido del autor(a):</label>
-          <input type="text" name="author" id="author" {...authorLastNameInput}/>
-        </div>
-        <div>
-          {!coauthor && <button onClick={moreAuthors}>Agrega otro autor(a)</button>}
+          {!coauthor && <button onClick={moreAuthors}><FontAwesomeIcon icon={faPlus}/>&nbsp;&nbsp;Agrega otro autor(a)</button>}
         </div>
         {coauthor && 
-          <>
+          <div className="author">
+            <div>
+              <label>Nombre del coautor(a):</label>
+              <input type="text" name="author" id="author" {...coAuthorFirstNameInput}/>
+            </div>
+            <div>
+              <label>Apellido del coautor(a):</label>
+              <input type="text" name="author" id="author" {...coAuthorLastNameInput}/>
+            </div>
+          </div>}
+        <div className="author">
           <div>
-            <label>Nombre del coautor(a):</label>
-            <input type="text" name="author" id="author" {...coAuthorFirstNameInput}/>
+            <label>Editorial:</label>
+            <input type="text" name="publisher" id="publisher" placeholder="Lackington, Hughes & Harding" {...publisherInput}/>
           </div>
           <div>
-            <label>Apellido del coautor(a):</label>
-            <input type="text" name="author" id="author" {...coAuthorLastNameInput}/>
+            <label>Edición:</label>
+            <input type="text" name="edition" id="edition" placeholder="primera edición" {...editionInput}/>
           </div>
-          </>}
-        <div>
-          <label>Editorial:</label>
-          <input type="text" name="publisher" id="publisher" {...publisherInput}/>
         </div>
-        <div>
-          <label>Año de publicación:</label>
-          <input type="text" name="published" id="published" {...publishedInput}/>
+        <div className="author">
+          <div>
+            <label>Año de publicación:</label>
+            <input type="text" name="published" id="published" placeholder="1818" {...publishedInput}/>
+          </div>
+          <div>
+            <label>Lugar de publicación:</label>
+            <input type="text" name="publishPlace" id="publishPlace" placeholder="Londres" {...publishPlaceInput}/>
+          </div>
         </div>
-        <div>
-          <label>Edición:</label>
-          <input type="text" name="edition" id="edition" {...editionInput}/>
+        <div className="author">
+          <div>
+            <label>ISBN:</label>
+            <input placeholder="000-0-00-000000-0" type="text" name="ISBN" id="ISBN" {...ISBNInput}/>
+          </div>
+          <div>
+            <label>Páginas:</label>
+            <input type="text" name="pages" id="pages" placeholder="280" {...pagesInput}/>
+          </div>
         </div>
-        <div>
-          <label>ISBN:</label>
-          <input type="text" name="ISBN" id="ISBN" {...ISBNInput}/>
-        </div>
-        <div>
-          <label>Lugar de publicación:</label>
-          <input type="text" name="publishPlace" id="publishPlace" {...publishPlaceInput}/>
-        </div>
-        <div>
-          <label>Páginas:</label>
-          <input type="text" name="pages" id="pages" {...pagesInput}/>
-        </div>
-        <div>
-          <label>Descripción:</label>
-          <textarea type="text" name="description" id="description" {...descriptionInput}/>
+        <div className="author">
+          <label>Portada: </label>
+          <div className="button-wrapper">
+            <span className="label">Agrega un archivo</span>  
+            <input onChange={uploadCover} type="file" name="upload" id="upload" className="upload-box" placeholder="Upload File"/>
+          </div>
         </div>
         <div>
           <label>Formato:</label>
@@ -125,11 +136,12 @@ function NewBook({ history }) {
           </select>
         </div>
         <div>
-          <label>Portada: </label>
-          <input type="file" onChange={uploadCover}/>
+          <label>Descripción:</label>
+          <textarea type="text" name="description" id="description" placeholder="La novela narra la historia de Víctor Frankenstein, un estudiante de medicina en Ingolstadt, obsesionado por conocer «los secretos del cielo y la tierra»." {...descriptionInput}/>
         </div>
+        
         <div>
-         <button type="submit"><FontAwesomeIcon icon={faBookOpen}/>&nbsp;Crear libro</button>
+          <button type="submit"><FontAwesomeIcon icon={faBookOpen}/>&nbsp;Crear libro</button>
         </div>
       </form>
     </div>

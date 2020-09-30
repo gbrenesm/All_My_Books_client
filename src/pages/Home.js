@@ -1,11 +1,18 @@
 import React, { useState, useContext } from "react"
 import { Context } from "../context"
 import useInput from "../hooks/useInput"
-import { signup, login, googleLogin } from "../services/auth"
+import { signup, login } from "../services/auth"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faGoogle, faFacebookF } from "@fortawesome/free-brands-svg-icons"
 import { Link } from "react-router-dom"
 import swal from "sweetalert"
+
+let baseURL
+
+process.env.NODE_ENV === "production"
+? (baseURL = "https://allmybooksmex.herokuapp.com")
+: (baseURL = "http://localhost:3000")
+
 
 function Home ({ history }) {
   const { ctxUser } = useContext(Context)
@@ -13,6 +20,8 @@ function Home ({ history }) {
   const emailInput = useInput("")
   const passwordInput = useInput("")
   const [signupForm, setsignupForm] = useState(true)
+
+
 
   async function submitFormSignup(e){
     e.preventDefault()
@@ -24,7 +33,7 @@ function Home ({ history }) {
       console.dir(err.response.data.message)
       swal({
         title: "Vuelve a intentar",
-        text: err.response.data.message, 
+        text: err.response.data.message,
         type: "error",
         icon: "error",
         className: "alert"
@@ -49,10 +58,6 @@ function Home ({ history }) {
     ctxUser(user)
   }
   
-  async function loginWithGoogle(){
-    const user = await googleLogin()
-    ctxUser(user)
-  } 
 
   function changeLogin(){
     if (signupForm) setsignupForm(false)
@@ -86,7 +91,7 @@ function Home ({ history }) {
             <button type="submit">Crea tu cuenta</button>
           </form>
           <div>
-            <a href="http://localhost:3000/auth/google"><FontAwesomeIcon icon={faGoogle} /> &nbsp;Google</a>
+            <a href={`${baseURL}/auth/google`}><FontAwesomeIcon icon={faGoogle} /> &nbsp;Google</a>
             <Link><FontAwesomeIcon icon={faFacebookF} />&nbsp;Facebook</Link>
           </div>
           <hr/>
@@ -106,7 +111,7 @@ function Home ({ history }) {
 
           </form>
           <div>
-            <Link onClick={loginWithGoogle}><FontAwesomeIcon icon={faGoogle} /> &nbsp;Google</Link>
+            <Link><FontAwesomeIcon icon={faGoogle} /> &nbsp;Google</Link>
             <Link><FontAwesomeIcon icon={faFacebookF} />&nbsp;Facebook</Link>
           </div>
           <hr/>

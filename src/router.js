@@ -7,14 +7,6 @@ import BookDetail from "./pages/BookDetail"
 import NewBook from "./pages/NewBook"
 import UserConfig from "./pages/UserConfig"
 
-
-//const Home = () => <h1>Home</h1>
-//const UserHome = () => <h1>User Home</h1>
-//const NewBook = () => <h1>New Book</h1>
-//const BookDetail = () => <h1>Book Detail</h1>
-//const UserConfig = () => <h1>Profile Cofiguration</h1>
-//const EditBook = () => <h1>Update Book</h1>
-
 const Router = () => {
   return(
     <BrowserRouter>

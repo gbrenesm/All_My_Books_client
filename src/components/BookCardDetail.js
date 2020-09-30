@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState} from 'react'
 import { Link, useHistory } from "react-router-dom"
 import { deleteBook, updateBook } from "../services/books"
 import ShelvesInBook from "./ShelvesInBook"
@@ -17,7 +17,7 @@ function BookCardDetail({book, setUpdateBook, bookShelves, bookId, setNewShelf})
   const coAuthorFirstNameInput = useInput(book.coAuthorFirstName)
   const coAuthorLastNameInput = useInput(book.coAuthorLastName)
   const publisherInput = useInput(book.publisher)
-  const publishedInput = useInput(book.published)
+  const publishedInput = useInput(book.published.slice(0,4))
   const editionInput = useInput(book.edition)
   const ISBNInput = useInput(book.ISBN)
   const publishPlaceInput = useInput(book.publishPlace)
@@ -31,8 +31,9 @@ function BookCardDetail({book, setUpdateBook, bookShelves, bookId, setNewShelf})
   function eliminateBook(){
     swal({
       title:"Eliminar",
-      contetnt: <p>"¿Estás seguro(a) de que quieres eliminar el libro?"</p>,
-      buttons: ["Cancelar", "Confirmar"]
+      text: "¿Estás seguro(a) de que quieres eliminar el libro?",
+      buttons: ["Cancelar", "Confirmar"],
+      className: "pusnotification"
     }).then(response => {
       if (response){
         confirmEliminate()
@@ -46,6 +47,7 @@ function BookCardDetail({book, setUpdateBook, bookShelves, bookId, setNewShelf})
   }
 
   function editForm(){
+    if (book.coAuthorLastName) setcoauthor(true)
     if (!showForm) setShowForm(true)
     else setShowForm(false)
   }
@@ -60,7 +62,7 @@ function BookCardDetail({book, setUpdateBook, bookShelves, bookId, setNewShelf})
     data.append("file", files[0])
     data.append("upload_preset", "all_my_books")
 
-    const { data: { secure_url } } = await axios.post(process.env.REACT_APP_CLOUDINARY_URL, data)
+    const { data: { secure_url } } = await axios.post("http://api.cloudinary.com/v1_1/dxncdwsau/image/upload", data)
     setCoverURL(secure_url)
   }
 
@@ -124,70 +126,79 @@ function BookCardDetail({book, setUpdateBook, bookShelves, bookId, setNewShelf})
         {showForm &&
         <>
         <div>
-          <div>
             <img src={book.cover} alt="Book cover"/>
-          </div>
+        </div>
+        <form className="updatebook" onSubmit={submitForm}>
             <div>
-            <button onClick={editForm}><Link>Cancelar</Link></button>
-          </div>
-        </div>
-        <form onSubmit={submitForm}>
-        <label>Título</label>
-        <input required type="text" name="title" id="title" {...titleInput}/>
-        <br/>
-        <label>Nombre del autor(a)</label>
-        <input type="text" name="authorFirstName" id="authorFirstName" {...authorFirstNameInput}/>
-        <br/>
-        <label>Apellido del autor(a)</label>
-        <input type="text" name="authorLastName" id="authorLastName" {...authorLastNameInput}/>
-        <br/>
-        <div>
-        {!coauthor && <button onClick={moreAuthors}>Agrega otro autor(a)</button>}
-        </div>
-        {coauthor && 
-          <>
-          <div>
-            <label>Nombre del coautor(a):</label>
-            <input type="text" name="author" id="author" {...coAuthorFirstNameInput}/>
-          </div>
-          <div>
-            <label>Apellido del coautor(a):</label>
-            <input type="text" name="author" id="author" {...coAuthorLastNameInput}/>
-          </div>
-          </>}
-        <label>Editorial</label>
-        <input type="text" name="publisher" id="publisher" {...publisherInput}/>
-        <br/>
-        <label>Año de publicación</label>
-        <input type="text" name="published" id="published" {...publishedInput}/>
-        <br/>
-        <label>Edición</label>
-        <input type="text" name="edition" id="edition" {...editionInput}/>
-        <br/>
-        <label>ISBN</label>
-        <input type="text" name="ISBN" id="ISBN" {...ISBNInput}/>
-        <br/>
-        <label>Lugar de publicación</label>
-        <input type="text" name="publishPlace" id="publishPlace" {...publishPlaceInput}/>
-        <br/>
-        <label>Páginas</label>
-        <input type="text" name="pages" id="pages" {...pagesInput}/>
-        <br/>
-        <br/>
-        <label>Descripción</label>
-        <input type="text" name="description" id="description" {...descriptionInput}/>
-        <br/>
-        <label>Formato</label>
-        <select required name="format" {...formatInput}>
-          <option value="" selected>Selecciona una opción</option>
-          <option value="TAPA BLANDA">Tapa blanda</option>
-          <option value="TAPA DURA">Tapa dura</option>
-          <option value="EBOOK ">Ebook</option>
-        </select>
-        <label>Portada</label>
-        <input type="file" onChange={uploadCover}/>
-        <br/>
-        <button type="submit">Editar libro</button>
+              <label>Título:</label>
+              <br/>
+              <input required type="text" name="title" id="title" {...titleInput}/>
+              <br/>
+              <label>Nombre del autor(a):</label>
+              <br/>
+              <input type="text" name="authorFirstName" id="authorFirstName" {...authorFirstNameInput}/>
+              <br/>
+              <label>Apellido del autor(a):</label>
+              <br/>
+              <input type="text" name="authorLastName" id="authorLastName" {...authorLastNameInput}/>
+              <div>
+              {!coauthor && <button onClick={moreAuthors}>Agrega otro autor(a)</button>}
+              </div>
+              {coauthor && 
+                <>
+                <div>
+                  <label>Nombre del coautor(a):</label>
+                  <input type="text" name="author" id="author" {...coAuthorFirstNameInput}/>
+                </div>
+                <div>
+                  <label>Apellido del coautor(a):</label>
+                  <input type="text" name="author" id="author" {...coAuthorLastNameInput}/>
+                </div>
+                </>}
+              <label>Editorial:</label>
+              <input type="text" name="publisher" id="publisher" {...publisherInput}/>
+              <br/>
+              <label>Edición:</label>
+              <input type="text" name="edition" id="edition" {...editionInput}/>
+            </div>
+            <div>
+              <div>
+                <label>Año de publicación:</label>
+                <input type="text" name="published" id="published" {...publishedInput}/>
+              </div>
+              <div>
+                <label>Lugar de publicación:</label>
+                <input type="text" name="publishPlace" id="publishPlace" {...publishPlaceInput}/>
+              </div>
+              <div>
+                <label>ISBN: </label>
+                <input type="text" name="ISBN" id="ISBN" {...ISBNInput}/>
+              </div>
+              <div>
+                <label>Páginas:</label>
+                <input type="text" name="pages" id="pages" {...pagesInput}/>
+              </div>
+              <div>
+                <label>Formato:</label>
+                <select required name="format" {...formatInput}>
+                  <option value="" selected>Selecciona una opción</option>
+                  <option value="TAPA BLANDA">Tapa blanda</option>
+                  <option value="TAPA DURA">Tapa dura</option>
+                  <option value="EBOOK ">Ebook</option>
+                </select>
+              </div>
+                <label>Portada: </label>
+                <div className="button-wrapper updatebookupload">
+                  <span className="label">Agrega un archivo</span>  
+                  <input onChange={uploadCover} type="file" name="upload" id="upload" className="upload-box" placeholder="Upload File"/>
+                </div>
+                <label>Descripción</label>
+                <textarea type="text" name="description" id="description" {...descriptionInput}/>
+                <div>
+                  <button type="submit"><Link>Editar</Link></button>
+                  <button onClick={editForm}><Link>Cancelar</Link></button>
+                </div>
+            </div>
       </form>
         </>}
     </div>

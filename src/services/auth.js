@@ -14,9 +14,6 @@ export const login = async userData => {
   return user
 }
 
-export const googleLogin = async () => {
-  return await service.get("/google")
-}
 
 export const getCurrentUser = async () => {
   const { data: user } = await service.get("/currentuser")

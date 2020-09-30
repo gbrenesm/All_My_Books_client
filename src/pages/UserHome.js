@@ -11,22 +11,29 @@ function UserHome() {
   const [books, setBooks] = useState(null)
   const [shelves, setShelves] = useState(null)
   const [changePage, setChangePage] = useState(false)
-  const [page, setPage] = useState(1)
-  const [lessbtn, setLessbtn] = useState(false)
+  const [elemPages, setElemPages] = useState(12)
+  const [cutElem, setCutElem] = useState(0)
+  const [lessBtn, setLessbtn] = useState(false)
+  const [moreBtn, setMoreBtn] = useState(false)
   const [showNewShelf, setShowNewShelf] = useState(false)
   const [newShlef, setNewShlef] = useState(false)
   const nameInput = useInput("")
   const searchInput = useInput("")
 
+  function pagesBtn(){
+    
+  }
+
   function pagintationMore(){
-    setPage(page + 1)
+    setCutElem(cutElem + 12)
+    setElemPages(elemPages + 12)
     setChangePage(true)
     setLessbtn(true)
   }
 
   function pagintationLess(){
-    if (page <= 1) setLessbtn(false)
-    else setPage(page - 1)
+    setCutElem(cutElem - 12)
+    setElemPages(elemPages - 12)
     setChangePage(true)
   }
 
@@ -34,6 +41,7 @@ function UserHome() {
     const userbooks = await getAllUsersBooks()
     setBooks(userbooks.user.books)
     setShelves(userbooks.user.shelves)
+    if (userbooks.user.books.length >= 12) setMoreBtn(true)
   }
 
   async function fetchBookByShelf(shelfId){
@@ -120,8 +128,8 @@ function UserHome() {
           : <Loader></Loader>}
           {books === [] && <p>Aún no tienes libros</p>}
         </div>
-          {lessbtn && <button onClick={pagintationLess}>Regresa</button>}
-          {books && <button onClick={pagintationMore}>Ver más libros</button>}
+          {lessBtn && <button onClick={pagintationLess}>Regresa</button>}
+          {moreBtn && <button onClick={pagintationMore}>Ver más libros</button>}
       </div>
     </div>
   )
