@@ -121,7 +121,7 @@ function UserHome() {
                 <p>{book.coAuthorFirstName} {book.coAuthorLastName}</p>
               </div>
               <div>
-                <button><Link to={`/detialbook/${book._id}`}>Detalles</Link></button>
+                <button><Link to={`/detailbook/${book._id}`}>Detalles</Link></button>
               </div>
             </div>
           )) 

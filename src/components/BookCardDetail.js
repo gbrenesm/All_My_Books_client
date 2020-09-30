@@ -17,7 +17,7 @@ function BookCardDetail({book, setUpdateBook, bookShelves, bookId, setNewShelf})
   const coAuthorFirstNameInput = useInput(book.coAuthorFirstName)
   const coAuthorLastNameInput = useInput(book.coAuthorLastName)
   const publisherInput = useInput(book.publisher)
-  const publishedInput = useInput(book.published.slice(0,4))
+  const publishedInput = useInput(book.published?.slice(0,4))
   const editionInput = useInput(book.edition)
   const ISBNInput = useInput(book.ISBN)
   const publishPlaceInput = useInput(book.publishPlace)
@@ -195,8 +195,8 @@ function BookCardDetail({book, setUpdateBook, bookShelves, bookId, setNewShelf})
                 <label>Descripción</label>
                 <textarea type="text" name="description" id="description" {...descriptionInput}/>
                 <div>
-                  <button type="submit"><Link>Editar</Link></button>
-                  <button onClick={editForm}><Link>Cancelar</Link></button>
+                  <button type="submit">Editar</button>
+                  <button onClick={editForm}>Cancelar</button>
                 </div>
             </div>
       </form>

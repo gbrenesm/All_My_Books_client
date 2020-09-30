@@ -546,7 +546,6 @@ nav ul li ul li{
 }
 
 .notesbook button{
-  background-color: none;
   border: none
 }
 
@@ -788,12 +787,9 @@ nav ul li ul li{
   width: 60%;
 }
 
-.updatebook>div:nth-child(2) button a{
-  color: white;
-  text-decoration: none;
-}
 
 .updatebook>div:nth-child(2) button{
+  color: white;
   padding: 5px 10px;
   border-radius: 15px;
   width: 40%;
