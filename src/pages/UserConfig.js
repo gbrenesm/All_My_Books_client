@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import { Context } from "../context"
 import { Link } from "react-router-dom"
 import { updateUser } from "../services/auth"
@@ -14,6 +14,7 @@ function UserConfig() {
   const emailInput = useInput(user?.email)
   const [photoURL, setPhotoURL] = useState(user?.profilePhoto)
   const [showForm, setShowForm] = useState(false)
+  const [userUpdate, setUserUpdate] = useState(false)
 
   function editForm(){
     if (!showForm) setShowForm(true)
@@ -37,9 +38,13 @@ function UserConfig() {
       email: emailInput.value,
       profilePhoto: photoURL
     })
-    console.log(usernameInput.value)
     setShowForm(false)
+    setUserUpdate(true)
   }
+
+  useEffect(() => {
+    setUserUpdate(false)
+  }, [userUpdate])
 
 
   return (

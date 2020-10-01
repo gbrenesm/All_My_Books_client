@@ -601,6 +601,24 @@ nav ul li ul li{
   margin-left: 70vw;
 }
 
+.notes{
+ display: flex;
+ margin: 20px 0 0;
+ align-items: center;
+}
+
+.notes p{
+  margin: 0;
+}
+
+.notes button{
+  color: white;
+  background-color: var(--greendark);
+  border-radius: 15px;
+  padding: 5px 20px;
+  margin-left: 50px;
+}
+
 /* Format for new note and quote */
 
 .newnoteformat button, 

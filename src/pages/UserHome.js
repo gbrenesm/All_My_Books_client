@@ -80,8 +80,8 @@ function UserHome() {
         <div>
         {!searchOn &&
           <>
-          <button style={!activeBtn? {backgroundColor: "#588157"} : {backgroundColor: "#e5e5e5", color: "#343a40"}} className="sortButton" onClick={fetchBooksByAuthor}>Ver por autor(a)</button>
           <button style={activeBtn? {backgroundColor: "#588157"} : {backgroundColor: "#e5e5e5", color: "#343a40"}} className="sortButton" onClick={fetchAllBooks}>Ver por título</button>
+          <button style={!activeBtn? {backgroundColor: "#588157"} : {backgroundColor: "#e5e5e5", color: "#343a40"}} className="sortButton" onClick={fetchBooksByAuthor}>Ver por autor(a)</button>
           </>}
         </div>
         <div>
