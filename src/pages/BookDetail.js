@@ -74,9 +74,9 @@ function BookDetail({ match: { params: { bookId } }}) {
         <>
           <BookCardDetail book={book} setUpdateBook={setUpdateBook} bookShelves={allShelves} bookId={bookId} setNewShelf={setNewShelf}></BookCardDetail>
           <div className="notesbook">
-            <Link onClick={showNotes}><FontAwesomeIcon icon={faBookmark}/>&nbsp;Notas</Link>
-            <Link onClick={showQuotes}><FontAwesomeIcon icon={faQuoteLeft}/>&nbsp;Citas</Link>
-            <Link onClick={showReferences}><FontAwesomeIcon icon={faFileAlt}/>&nbsp;Referencia</Link>
+            <Link onClick={showNotes} style={!notes? {backgroundColor:"#e5e5e5", color:"#343a40"} : {backgroundColor:"rgba(168, 198, 134, 1)"} }><FontAwesomeIcon icon={faBookmark}/>&nbsp;Notas</Link>
+            <Link onClick={showQuotes} style={!quotes? {backgroundColor:"#e5e5e5", color:"#343a40"} : {backgroundColor:"rgba(168, 198, 134, 1)"}}><FontAwesomeIcon icon={faQuoteLeft}/>&nbsp;Citas</Link>
+            <Link onClick={showReferences} style={!references? {backgroundColor:"#e5e5e5", color:"#343a40"} : {backgroundColor:"rgba(168, 198, 134, 1)"}}><FontAwesomeIcon icon={faFileAlt}/>&nbsp;Referencia</Link>
             {notes && 
               <div className="notescards">
                 <NewNote bookIdToUse={bookId} setNewNote={setNewNote}></NewNote>

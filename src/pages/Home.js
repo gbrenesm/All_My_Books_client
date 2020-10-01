@@ -4,7 +4,6 @@ import useInput from "../hooks/useInput"
 import { signup, login } from "../services/auth"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faGoogle, faFacebookF } from "@fortawesome/free-brands-svg-icons"
-import { Link } from "react-router-dom"
 import swal from "sweetalert"
 
 let baseURL
@@ -34,7 +33,6 @@ function Home ({ history }) {
         title: "Vuelve a intentar",
         text: err.response.data.message,
         type: "error",
-        icon: "error",
         className: "alert"
       })})
   }
@@ -49,7 +47,6 @@ function Home ({ history }) {
         title: "Vuelve a intentar",
         text: err.response.data.message, 
         type: "error",
-        icon: "error",
         className: "alert"
       })})
     ctxUser(user)

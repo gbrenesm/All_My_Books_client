@@ -1,12 +1,12 @@
-import React, { useState, useContext, useEffect } from 'react'
+import React, { useState, useContext } from 'react'
 import { Context } from "../context"
 import { Link } from "react-router-dom"
 import { updateUser } from "../services/auth"
 import axios from "axios"
 import useInput from "../hooks/useInput"
-import { getUserShelves, deleteShelf } from "../services/shelves"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import {faEdit, faTrashAlt } from "@fortawesome/free-solid-svg-icons"
+import {faEdit } from "@fortawesome/free-solid-svg-icons"
+import UserShelvesConfig from "../components/UserShelvesConfig"
 
 function UserConfig() {
   const { user } = useContext(Context)
@@ -14,18 +14,6 @@ function UserConfig() {
   const emailInput = useInput(user?.email)
   const [photoURL, setPhotoURL] = useState(user?.profilePhoto)
   const [showForm, setShowForm] = useState(false)
-  const [shelves, setShelves] = useState(null)
-  const [shelfDeleted, setShelfDeleted] = useState(false)
-
-  async function fetchShelves(){
-    const shlevesData = await getUserShelves()
-    setShelves(shlevesData.shelves.shelves)
-  }
-
-  async function deleteShelves(shelfID){
-    await deleteShelf(shelfID)
-    setShelfDeleted(true)
-  }
 
   function editForm(){
     if (!showForm) setShowForm(true)
@@ -37,7 +25,7 @@ function UserConfig() {
     data.append("file", files[0])
     data.append("upload_preset", "all_my_books")
 
-    const { data: { secure_url } } = await axios.post("http://api.cloudinary.com/v1_1/dxncdwsau/image/upload", data)
+    const { data: { secure_url } } = await axios.post("https://api.cloudinary.com/v1_1/dxncdwsau/image/upload", data)
     setPhotoURL(secure_url)
   }
 
@@ -53,59 +41,42 @@ function UserConfig() {
     setShowForm(false)
   }
 
-  useEffect(() => {
-    fetchShelves()
-  }, [shelfDeleted])
 
   return (
     <div className="userProfile">
       <div>
+        <div className="userpicdiv">
+          <img src={user?.profilePhoto} alt="Profile"/>
+        </div>
         {!showForm && user?
         <div>
-          <div>
-            <img src={user.profilePhoto} alt="Profile"/>
-          </div>
-          <div>
-            <h2>{user.username}</h2>
-            <h3>{user.email}</h3>
-            <button onClick={editForm}><FontAwesomeIcon icon={ faEdit }/>&nbsp;<Link>Editar</Link></button>
-          </div>
-        </div>: <></>}
+          <h2>{user.username}</h2>
+          <h3>{user.email}</h3>
+          <button onClick={editForm}><FontAwesomeIcon icon={ faEdit }/>&nbsp;<Link>Editar</Link></button>
+        </div>
+        : <></>}
         
         {showForm && user?
         <>
         <div>
           <div>
-            <img src={user.profilePhoto} alt="Profile"/>
-          </div>
-            <div>
             <button onClick={editForm}><Link>Cancelar</Link></button>
           </div>
         </div>
         <form onSubmit={submitForm}>
-        <label>Nombre de usuario: </label>
-        <input required type="text" name="username" id="username" {...usernameInput}/>
-        <br/>
-        <label>Email: </label>
-        <input required type="text" name="email" id="email" {...emailInput}/>
-        <label>Foto de perfil: </label>
-        <input type="file" onChange={uploadPhoto}/>
-        <button type="submit">Editar</button>
-        <button onClick={editForm}>Cancelar</button>
+          <label>Nombre de usuario: </label>
+          <input required type="text" name="username" id="username" {...usernameInput}/>
+          <br/>
+          <label>Email: </label>
+          <input required type="text" name="email" id="email" {...emailInput}/>
+          <label>Foto de perfil: </label>
+          <input type="file" onChange={uploadPhoto}/>
+          <button type="submit">Editar</button>
+          <button onClick={editForm}>Cancelar</button>
         </form>
         </> : <></>}
       </div>
-      <div>
-          <p><b>Estantes:</b></p>
-          <ul>
-            {shelves? shelves.map((shelf, i) => (
-              <>
-              <li key={i}>{shelf.name}</li>
-              <button onClick={()=>{deleteShelves(shelf._id)}}><FontAwesomeIcon icon={ faTrashAlt }/>&nbsp;Eliminar</button> 
-              </>
-            )) : <p>Aún no tienes estantes</p>}
-          </ul>
-      </div>
+      <UserShelvesConfig/>
     </div>
   )
 }

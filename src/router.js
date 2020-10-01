@@ -6,6 +6,7 @@ import UserHome from "./pages/UserHome"
 import BookDetail from "./pages/BookDetail"
 import NewBook from "./pages/NewBook"
 import UserConfig from "./pages/UserConfig"
+import PrivateRoute from "./components/PrivateRoute"
 
 const Router = () => {
   return(

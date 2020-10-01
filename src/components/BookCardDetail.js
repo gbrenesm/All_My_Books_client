@@ -32,8 +32,18 @@ function BookCardDetail({book, setUpdateBook, bookShelves, bookId, setNewShelf})
     swal({
       title:"Eliminar",
       text: "¿Estás seguro(a) de que quieres eliminar el libro?",
-      buttons: ["Cancelar", "Confirmar"],
-      className: "pusnotification"
+      buttons: {
+        cancel: {
+          text: "Cancelar",
+          visible: true,
+          className: "cancelbtn",
+        },
+        confirm: {
+          text: "Eliminar",
+          className: "aceptbtn",
+        }
+      },
+      className: "pushnotification"
     }).then(response => {
       if (response){
         confirmEliminate()
@@ -62,7 +72,7 @@ function BookCardDetail({book, setUpdateBook, bookShelves, bookId, setNewShelf})
     data.append("file", files[0])
     data.append("upload_preset", "all_my_books")
 
-    const { data: { secure_url } } = await axios.post("http://api.cloudinary.com/v1_1/dxncdwsau/image/upload", data)
+    const { data: { secure_url } } = await axios.post("https://api.cloudinary.com/v1_1/dxncdwsau/image/upload", data)
     setCoverURL(secure_url)
   }
 
