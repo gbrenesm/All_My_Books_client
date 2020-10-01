@@ -43,13 +43,13 @@ function UserConfig() {
 
 
   return (
-    <div className="userProfile">
+    <div className="bookDetailCard userProfile">
       <div>
-        <div className="userpicdiv">
+        <div>
           <img src={user?.profilePhoto} alt="Profile"/>
         </div>
         {!showForm && user?
-        <div>
+        <div className="userinfo">
           <h2>{user.username}</h2>
           <h3>{user.email}</h3>
           <button onClick={editForm}><FontAwesomeIcon icon={ faEdit }/>&nbsp;<Link>Editar</Link></button>
@@ -57,24 +57,19 @@ function UserConfig() {
         : <></>}
         
         {showForm && user?
-        <>
-        <div>
-          <div>
-            <button onClick={editForm}><Link>Cancelar</Link></button>
-          </div>
-        </div>
         <form onSubmit={submitForm}>
           <label>Nombre de usuario: </label>
           <input required type="text" name="username" id="username" {...usernameInput}/>
           <br/>
           <label>Email: </label>
           <input required type="text" name="email" id="email" {...emailInput}/>
+          <br/>
           <label>Foto de perfil: </label>
           <input type="file" onChange={uploadPhoto}/>
           <button type="submit">Editar</button>
           <button onClick={editForm}>Cancelar</button>
-        </form>
-        </> : <></>}
+        </form>: 
+        <></>}
       </div>
       <UserShelvesConfig/>
     </div>

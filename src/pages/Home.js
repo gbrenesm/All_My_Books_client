@@ -27,30 +27,37 @@ function Home ({ history }) {
     const username = usernameInput.value
     const email = emailInput.value
     const password = passwordInput.value
-    await signup({username, email, password}).catch(err => {
-      console.dir(err.response.data.message)
+    try {
+      await signup({username, email, password})
+      setsignupForm(false)
+    } catch (error) {
+      console.dir(error.response.data.message)
       swal({
         title: "Vuelve a intentar",
-        text: err.response.data.message,
+        text: error.response.data.message,
         type: "error",
         className: "alert"
-      })})
-  }
+      })
+    }
+}
 
   async function submitFormLogin(e){
     e.preventDefault()
     const email = emailInput.value
     const password = passwordInput.value
-    const user = await login({email, password}).catch(err => {
-      console.dir(err.response.data.message)
+    try {
+      const user = await login({email, password})
+      ctxUser(user)
+      history.push("/userhome")
+    } catch (error) {
+      console.dir(error.response.data.message)
       swal({
         title: "Vuelve a intentar",
-        text: err.response.data.message, 
+        text: error.response.data.message, 
         type: "error",
         className: "alert"
-      })})
-    ctxUser(user)
-    history.push("/userhome")
+      })
+    }
   }
   
 

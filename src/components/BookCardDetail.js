@@ -32,18 +32,7 @@ function BookCardDetail({book, setUpdateBook, bookShelves, bookId, setNewShelf})
     swal({
       title:"Eliminar",
       text: "¿Estás seguro(a) de que quieres eliminar el libro?",
-      buttons: {
-        cancel: {
-          text: "Cancelar",
-          visible: true,
-          className: "cancelbtn",
-        },
-        confirm: {
-          text: "Eliminar",
-          className: "aceptbtn",
-        }
-      },
-      className: "pushnotification"
+      buttons: ["Cancelar", "Eliminar"],
     }).then(response => {
       if (response){
         confirmEliminate()

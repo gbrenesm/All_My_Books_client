@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from "react-router-dom"
 import { getAllUsersBooks, getAllUserBooksAuthor } from "../services/books"
-import { createShelf, getOneShelf } from "../services/shelves"
+import ShelvesUserHomes from "../components/ShlevesUserHome"
 import useInput from "../hooks/useInput"
 import Loader from "../components/Loader"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faBook, faPlus, faSearch, faChevronLeft } from "@fortawesome/free-solid-svg-icons"
+import {faSearch, faChevronLeft } from "@fortawesome/free-solid-svg-icons"
 
 function UserHome() {
   const [books, setBooks] = useState(null)
@@ -16,9 +16,7 @@ function UserHome() {
   // const [lessBtn, setLessbtn] = useState(false)
   // const [moreBtn, setMoreBtn] = useState(false)
   const [searchOn, setSearchOn] = useState(false)
-  const [showNewShelf, setShowNewShelf] = useState(false)
   const [newShlef, setNewShlef] = useState(false)
-  const nameInput = useInput("")
   const searchInput = useInput("")
   const [activeBtn, setActiveBtn] = useState(true)
 
@@ -48,24 +46,10 @@ function UserHome() {
     setActiveBtn(true)
   }
 
-  async function fetchBookByShelf(shelfId){
-    const booksByShelf = await getOneShelf(shelfId)
-    setBooks(booksByShelf.books.books)
-  }
-
   async function fetchBooksByAuthor(){
     const userbooks = await getAllUserBooksAuthor()
     setBooks(userbooks.user.books)
     setActiveBtn(false)
-  }
-
-  async function submitShelvesForm(e){
-    e.preventDefault()
-    await createShelf({
-      name: nameInput.value
-    })
-    setShowNewShelf(false)
-    setNewShlef(true)
   }
 
   function submitSearch(e){
@@ -75,11 +59,6 @@ function UserHome() {
                                   book.authorFirstName.toLowerCase().includes(searchInput.value.toLowerCase()) ||
                                   book.authorLastName.toLowerCase().includes(searchInput.value.toLowerCase())))
     if (searchInput.value === "") fetchAllBooks()
-  }
-  
-  function showForm(){
-    if (showNewShelf) setShowNewShelf(false)
-    else setShowNewShelf(true)
   }
 
   useEffect(() => {
@@ -91,23 +70,7 @@ function UserHome() {
 
   return (
     <div className="userhome">
-      <div>
-        <h2>Estantes</h2>
-          {!showNewShelf && <button onClick={showForm}><FontAwesomeIcon icon={faPlus}/>&nbsp;&nbsp;Crear nuevo estante</button>}
-          {showNewShelf && 
-            <form onSubmit={submitShelvesForm}>
-              <label><b>Nombre del estante: </b></label>
-              <input required type="text" name="name" id="name" {...nameInput}/>
-              <button type="submit">Crear estante</button>
-              <button onClick={showForm}>Cancelar</button>
-            </form>}
-        <ul>
-          <li><Link onClick={fetchAllBooks}><FontAwesomeIcon icon={faBook}/>&nbsp;&nbsp;Todos tus libros</Link></li>
-          {shelves?.map((shelf, i) => (
-          <li key={i}><Link onClick={() => fetchBookByShelf(shelf._id)}><FontAwesomeIcon icon={faBook}/>&nbsp;&nbsp;{shelf.name}</Link></li>
-          ))}
-        </ul>
-      </div>
+        <ShelvesUserHomes shelves={shelves} setNewShlef={setNewShlef} fetchAllBooks={fetchAllBooks} setBooks={setBooks}/>
       <div>
         <form onChange={submitSearch} onSubmit={submitSearch} className="search">
         <button onClick={fetchAllBooks} className="returnBtutton"><FontAwesomeIcon icon={faChevronLeft}/></button>
