@@ -14,10 +14,10 @@ const Router = () => {
       <Switch>
         <Route component={Home} path="/" exact/>
         <Layout>
-          <Route component={UserHome} path="/userhome" exact/>
-          <Route component={NewBook} path="/newbook" exact/>
-          <Route component={BookDetail} path="/detailbook/:bookId" exact/>
-          <Route component={UserConfig} path="/userconfig" exact/>
+          <PrivateRoute component={UserHome} path="/userhome" exact/>
+          <PrivateRoute component={NewBook} path="/newbook" exact/>
+          <PrivateRoute component={BookDetail} path="/detailbook/:bookId" exact/>
+          <PrivateRoute component={UserConfig} path="/userconfig" exact/>
         </Layout>
       </Switch>
     </BrowserRouter>

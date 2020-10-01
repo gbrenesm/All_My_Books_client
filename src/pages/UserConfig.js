@@ -9,12 +9,11 @@ import {faEdit } from "@fortawesome/free-solid-svg-icons"
 import UserShelvesConfig from "../components/UserShelvesConfig"
 
 function UserConfig() {
-  const { user } = useContext(Context)
+  const { user, setUserUpdate } = useContext(Context)
   const usernameInput = useInput(user?.username)
   const emailInput = useInput(user?.email)
   const [photoURL, setPhotoURL] = useState(user?.profilePhoto)
   const [showForm, setShowForm] = useState(false)
-  const [userUpdate, setUserUpdate] = useState(false)
 
   function editForm(){
     if (!showForm) setShowForm(true)
@@ -41,10 +40,6 @@ function UserConfig() {
     setShowForm(false)
     setUserUpdate(true)
   }
-
-  useEffect(() => {
-    setUserUpdate(false)
-  }, [userUpdate])
 
 
   return (

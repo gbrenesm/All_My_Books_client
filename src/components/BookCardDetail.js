@@ -35,15 +35,16 @@ function BookCardDetail({book, setUpdateBook, bookShelves, bookId, setNewShelf})
       buttons: ["Cancelar", "Eliminar"],
     }).then(response => {
       if (response){
-        confirmEliminate()
+        deleteBook(book._id)
+        history.push("/userhome")
       }
     })
   }
 
-  async function confirmEliminate(){
-    await deleteBook(book._id)
-    history.push("/userhome")
-  }
+// async function eliminateBook(){
+//   await deleteBook(book._id)
+//   history.push("/userhome")
+// }
 
   function editForm(){
     if (book.coAuthorLastName) setcoauthor(true)

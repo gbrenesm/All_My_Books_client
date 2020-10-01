@@ -10,38 +10,16 @@ import {faSearch, faChevronLeft } from "@fortawesome/free-solid-svg-icons"
 function UserHome() {
   const [books, setBooks] = useState(null)
   const [shelves, setShelves] = useState(null)
-  const [changePage, setChangePage] = useState(false)
-  // const [elemPages, setElemPages] = useState(12)
-  // const [cutElem, setCutElem] = useState(0)
-  // const [lessBtn, setLessbtn] = useState(false)
-  // const [moreBtn, setMoreBtn] = useState(false)
   const [searchOn, setSearchOn] = useState(false)
   const [newShlef, setNewShlef] = useState(false)
   const searchInput = useInput("")
   const [activeBtn, setActiveBtn] = useState(true)
 
-  // function pagesBtn(){
-    
-  // }
-
-  // function pagintationMore(){
-  //   setCutElem(cutElem + 12)
-  //   setElemPages(elemPages + 12)
-  //   setChangePage(true)
-  //   setLessbtn(true)
-  // }
-
-  // function pagintationLess(){
-  //   setCutElem(cutElem - 12)
-  //   setElemPages(elemPages - 12)
-  //   setChangePage(true)
-  // }
 
   async function fetchAllBooks() {
     const userbooks = await getAllUsersBooks()
     setBooks(userbooks.user.books)
     setShelves(userbooks.user.shelves)
-    // if (userbooks.user.books.length >= 12) setMoreBtn(true)
     setSearchOn(false)
     setActiveBtn(true)
   }
@@ -63,9 +41,8 @@ function UserHome() {
 
   useEffect(() => {
     fetchAllBooks()
-    setChangePage(false)
     setNewShlef(false)
-  }, [changePage, newShlef])
+  }, [newShlef])
 
 
   return (
@@ -101,8 +78,6 @@ function UserHome() {
           : <Loader></Loader>}
           {books === [] && <p>Aún no tienes libros</p>}
         </div>
-          {/* {lessBtn && <button onClick={pagintationLess}>Regresa</button>}
-          {moreBtn && <button onClick={pagintationMore}>Ver más libros</button>} */}
       </div>
     </div>
   )

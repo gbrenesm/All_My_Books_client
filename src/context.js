@@ -5,6 +5,7 @@ export const Context = createContext()
 
 export default function CtxProvider({ children }){
   const [user, setUser] = useState(null)
+  const [userUpdate, setUserUpdate] = useState(false)
 
   useEffect(() => {
     async function userdata() {
@@ -12,7 +13,8 @@ export default function CtxProvider({ children }){
       setUser(user)
     }
     userdata()
-  },[])
+    setUserUpdate(false)
+  },[userUpdate])
 
   const ctxUser = loginUser => setUser(loginUser)
   const clearctxUser = () => setUser(null)
@@ -21,7 +23,8 @@ export default function CtxProvider({ children }){
     <Context.Provider value={{
       user,
       ctxUser,
-      clearctxUser
+      clearctxUser,
+      setUserUpdate
     }}>
       {children}
     </Context.Provider>
