@@ -20,6 +20,7 @@ function UserHome() {
   const [newShlef, setNewShlef] = useState(false)
   const nameInput = useInput("")
   const searchInput = useInput("")
+  const [activeBtn, setActiveBtn] = useState(true)
 
   // function pagesBtn(){
     
@@ -44,6 +45,7 @@ function UserHome() {
     setShelves(userbooks.user.shelves)
     // if (userbooks.user.books.length >= 12) setMoreBtn(true)
     setSearchOn(false)
+    setActiveBtn(true)
   }
 
   async function fetchBookByShelf(shelfId){
@@ -54,6 +56,7 @@ function UserHome() {
   async function fetchBooksByAuthor(){
     const userbooks = await getAllUserBooksAuthor()
     setBooks(userbooks.user.books)
+    setActiveBtn(false)
   }
 
   async function submitShelvesForm(e){
@@ -114,8 +117,8 @@ function UserHome() {
         <div>
         {!searchOn &&
           <>
-          <button className="sortButton" onClick={fetchBooksByAuthor}>Ver por autor</button>
-          <button className="sortButton" onClick={fetchAllBooks}>Ver por título</button>
+          <button style={!activeBtn? {backgroundColor: "#588157"} : {backgroundColor: "#e5e5e5", color: "#343a40"}} className="sortButton" onClick={fetchBooksByAuthor}>Ver por autor(a)</button>
+          <button style={activeBtn? {backgroundColor: "#588157"} : {backgroundColor: "#e5e5e5", color: "#343a40"}} className="sortButton" onClick={fetchAllBooks}>Ver por título</button>
           </>}
         </div>
         <div>
