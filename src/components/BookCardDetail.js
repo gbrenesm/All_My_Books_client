@@ -44,7 +44,7 @@ function BookCardDetail({book, setUpdateBook, bookShelves, bookId, setNewShelf})
       className: "pushnotification"
     }).then(response => {
       if (response){
-        await deleteBook(book._id)
+        deleteBook(book._id)
         history.push("/userhome")
       }
     })
