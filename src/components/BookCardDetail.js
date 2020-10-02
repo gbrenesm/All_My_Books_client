@@ -6,7 +6,6 @@ import axios from "axios"
 import useInput from "../hooks/useInput"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import {faEdit, faTrashAlt } from "@fortawesome/free-solid-svg-icons"
-import swal from "@sweetalert/with-react"
 
 function BookCardDetail({book, setUpdateBook, bookShelves, bookId, setNewShelf}) {
   const [showForm, setShowForm] = useState(false)
@@ -27,34 +26,11 @@ function BookCardDetail({book, setUpdateBook, bookShelves, bookId, setNewShelf})
   const [coverURL, setCoverURL] = useState(book.cover)
   const [coauthor, setcoauthor] = useState(false)
 
-  function eliminateBook(){
-    swal({
-      title:"Eliminar",
-      text: "¿Estás seguro(a) de que quieres eliminar el estante?",
-      buttons: {
-        cancel: {
-          text: "Cancelar",
-          visible: true,
-          className: "cancelbtn",
-        },
-        confirm: {
-          text: "Eliminar",
-          className: "aceptbtn",
-        }
-      },
-      className: "pushnotification"
-    }).then(response => {
-      if (response){
-        deleteBook(book._id)
-        history.push("/userhome")
-      }
-    })
-  }
 
-  // async function eliminateBook(){
-  //   await deleteBook(book._id)
-  //   history.push("/userhome")
-  // }
+  async function eliminateBook(){
+    await deleteBook(book._id)
+    history.push("/userhome")
+  }
 
   function editForm(){
     if (book.coAuthorLastName) setcoauthor(true)
