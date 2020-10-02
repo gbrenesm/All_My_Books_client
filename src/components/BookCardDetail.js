@@ -26,10 +26,28 @@ function BookCardDetail({book, setUpdateBook, bookShelves, bookId, setNewShelf})
   const [coverURL, setCoverURL] = useState(book.cover)
   const [coauthor, setcoauthor] = useState(false)
 
-
-  async function eliminateBook(){
-    await deleteBook(book._id)
-    history.push("/userhome")
+  function eliminateBook(){
+    swal({
+      title:"Eliminar",
+      text: "¿Estás seguro(a) de que quieres eliminar este libro?",
+      buttons: {
+        cancel: {
+          text: "Cancelar",
+          visible: true,
+          className: "cancelbtn",
+        },
+        confirm: {
+          text: "Eliminar",
+          className: "aceptbtn",
+        }
+      },
+      className: "pushnotification"
+    }).then(response => {
+      if (response){
+        await deleteBook(book._id)
+        history.push("/userhome")
+      }
+    })
   }
 
   function editForm(){
@@ -85,7 +103,7 @@ function BookCardDetail({book, setUpdateBook, bookShelves, bookId, setNewShelf})
           </div>
             <div>
             <button onClick={editForm}> <FontAwesomeIcon icon={ faEdit }/>&nbsp;<Link>Editar libro</Link></button>
-            <button onClick={eliminateBook}> <FontAwesomeIcon icon={ faTrashAlt }/>&nbsp; <Link to= "">Eliminar libro</Link></button>
+            <button onClick={eliminateBook}> <FontAwesomeIcon icon={ faTrashAlt }/>&nbsp; <Link>Eliminar libro</Link></button>
           </div>
         </div>
         <div>
