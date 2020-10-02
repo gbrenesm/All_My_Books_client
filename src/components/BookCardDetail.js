@@ -6,6 +6,7 @@ import axios from "axios"
 import useInput from "../hooks/useInput"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import {faEdit, faTrashAlt } from "@fortawesome/free-solid-svg-icons"
+import swal from "@sweetalert/with-react"
 
 function BookCardDetail({book, setUpdateBook, bookShelves, bookId, setNewShelf}) {
   const [showForm, setShowForm] = useState(false)
