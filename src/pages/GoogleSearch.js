@@ -11,7 +11,7 @@ function GoogleSearch() {
 
   async function submitSearch(e){
     e.preventDefault()
-    const data = await axios.get("https://www.googleapis.com/books/v1/volumes?q=" + searchInput.value + "&key=AIzaSyBZQmp9pmeyUi99NoLfkVKP3mrAnLE0zkI")
+    const data = await axios.get("https://www.googleapis.com/books/v1/volumes?q=" + searchInput.value + "&key=" + process.env.REACT_APP_GOOGLEKEY)
     const databook = data.data.items
     databook.forEach(e => 
       console.log(e.volumeInfo))
