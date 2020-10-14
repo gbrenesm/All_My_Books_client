@@ -20,8 +20,6 @@ function Home ({ history }) {
   const passwordInput = useInput("")
   const [signupForm, setsignupForm] = useState(true)
 
-
-
   async function submitFormSignup(e){
     e.preventDefault()
     const username = usernameInput.value
@@ -72,7 +70,7 @@ function Home ({ history }) {
       <div>
         <h1>All My Books</h1>
         <h2>El lugar para ordenar todos tus libros</h2>
-        <img src="https://res.cloudinary.com/dxncdwsau/image/upload/v1600883938/All_My_Books/Book_shelf_warm_colors_omdjq1.jpg" alt="Bookshelf by colors"/>
+        <img src="/images/Home.jpg" alt="Bookshelf by colors"/>
       </div>
       {signupForm && 
       <div>
