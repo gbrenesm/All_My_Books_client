@@ -18,7 +18,8 @@
     "react-js-pagination": "^3.0.3",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.3",
-    "sweetalert": "^2.1.2"
+    "sweetalert": "^2.1.2",
+    "swr": "^0.3.5"
   },
   "scripts": {
     "start": "PORT=3001 react-scripts start",

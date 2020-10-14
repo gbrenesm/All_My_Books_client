@@ -930,6 +930,10 @@ height: 40px;
   border: none;
 }
 
+.searchgoogle{
+  padding-top: 120px;
+}
+
 
 /* For tablets */
 @media (max-width: 961px) and (min-width: 767px){
