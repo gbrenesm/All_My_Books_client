@@ -1,13 +1,15 @@
 import React, { useState } from 'react'
 import { Link } from "react-router-dom"
-import useInput from "../hooks/useInput"
 import axios from "axios"
+import useInput from "../hooks/useInput"
+import BookForm from "../components/BookForm"
 import Loader from "../components/Loader"
 
 
 function GoogleSearch() {
   const searchInput = useInput("")
   const [books, setBooks] = useState(null)
+  const [bookToAdd, setBookToAdd] = useState(null)
 
   async function submitSearch(e){
     e.preventDefault()
@@ -18,6 +20,11 @@ function GoogleSearch() {
     setBooks(data.data.items)
   }
 
+  async function addBook(book){
+    setBookToAdd(book)
+    setBooks(null)
+  }
+
   return (
     <div className="searchgoogle">
       <form onSubmit={submitSearch} className="search">
@@ -25,6 +32,7 @@ function GoogleSearch() {
         <input type="text" className="searchTerm" placeholder="Busca libros" {...searchInput}/>
         <button type="submit">Buscar</button>
       </form>
+      {bookToAdd && <BookForm book={bookToAdd}/>}
       {books? books.map((book, i)=> (
             <div key={i} className="bookcard">
               <img src={book.volumeInfo.imageLinks? book.volumeInfo.imageLinks.thumbnail: ""} alt="Book cover"/>
@@ -34,7 +42,7 @@ function GoogleSearch() {
                 <p>{book.coAuthorFirstName} {book.coAuthorLastName}</p>
               </div>
               <div>
-                <button><Link to={`/detailbook/${book._id}`}>Detalles</Link></button>
+                <button><Link onClick={() => addBook(book.volumeInfo)}>Detalles</Link></button>
               </div>
             </div>
           )) 

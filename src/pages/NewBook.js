@@ -3,7 +3,7 @@ import { createBook } from "../services/books"
 import useInput from "../hooks/useInput"
 import axios from "axios"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faBookOpen,faPlus } from "@fortawesome/free-solid-svg-icons"
+import { faBookOpen, faPlus } from "@fortawesome/free-solid-svg-icons"
 
 
 function NewBook({ history }) {
