@@ -22,17 +22,17 @@ function Layout({ children }) {
     <div>
       <nav>
         <div>
-          <p><img src="https://res.cloudinary.com/dxncdwsau/image/upload/v1600963193/All_My_Books/%C3%8Dcono_de_libros_blanco_hajncl.png" alt="Books icon"/>&nbsp; <Link to="/userhome">All My Books</Link></p>
+          <p><img src="/images/Books_icon.png" alt="Books icon"/>&nbsp; <Link to="/userhome">All My Books</Link></p>
         </div>
         <div>
           <ul>
           <li><Link to="/newbook">Agregar libro</Link></li>
-            <li className="navicon"><img src={user?.profilePhoto} alt="User"/>&nbsp;<FontAwesomeIcon icon={faAngleDown}/>
-              <ul>
-                <li><Link to="/userconfig">Configuración</Link></li>
-                <li onClick={logoutClick}><Link>Cerrar sesión</Link></li>
-              </ul>
-            </li>
+          <li className="navicon"><img src={user?.profilePhoto} alt="User"/>&nbsp;<FontAwesomeIcon icon={faAngleDown}/>
+            <ul>
+              <li><Link to="/userconfig">Configuración</Link></li>
+              <li onClick={logoutClick}><Link>Cerrar sesión</Link></li>
+            </ul>
+          </li>
           </ul>
         </div>
       </nav>

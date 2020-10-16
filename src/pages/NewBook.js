@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
+import { Link } from "react-router-dom"
 import { createBook } from "../services/books"
 import useInput from "../hooks/useInput"
 import axios from "axios"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faBookOpen, faPlus } from "@fortawesome/free-solid-svg-icons"
+import GoogleSearch from "../components/GoogleSearch"
 
 
 function NewBook({ history }) {
@@ -22,6 +24,12 @@ function NewBook({ history }) {
   const descriptionInput = useInput("")
   const [imageURL, setImageURL] = useState(null)
   const [coauthor, setcoauthor] = useState(false)
+  const [bookFromScratch, setBookFromScratch] = useState(false)
+
+
+  function bookFrom0(){
+    setBookFromScratch(true)
+  }
 
   function moreAuthors(){
     if (!coauthor) setcoauthor(true)
@@ -67,8 +75,14 @@ function NewBook({ history }) {
   }
 
   return (
+    <>
+    <div className="addbookGoogle">
+      <h2>Añade un libro desde google</h2>
+      <GoogleSearch setBookFromScratch={setBookFromScratch}/>
+      <h2><Link onClick={bookFrom0}>O crea un nuevo libro</Link></h2>
+    </div>
+    {bookFromScratch && 
     <div className="newbook">
-      <h2>Crea un nuevo libro</h2>
       <form onSubmit={submitForm}>
         <div>
           <label>Título:</label>
@@ -157,7 +171,8 @@ function NewBook({ history }) {
           <button disabled={!imageURL} type="submit"><FontAwesomeIcon icon={faBookOpen}/>&nbsp;Crear libro</button>
         </div>
       </form>
-    </div>
+    </div>}
+    </>
   )
 }
 

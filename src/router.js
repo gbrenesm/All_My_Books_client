@@ -6,7 +6,6 @@ import UserHome from "./pages/UserHome"
 import BookDetail from "./pages/BookDetail"
 import NewBook from "./pages/NewBook"
 import UserConfig from "./pages/UserConfig"
-import GoogleSearch from "./pages/GoogleSearch"
 
 const Router = () => {
   return(
@@ -18,7 +17,6 @@ const Router = () => {
           <Route component={NewBook} path="/newbook" exact/>
           <Route component={BookDetail} path="/detailbook/:bookId" exact/>
           <Route component={UserConfig} path="/userconfig" exact/>
-          <Route component={GoogleSearch} path="/search" exact/>
         </Layout>
       </Switch>
     </BrowserRouter>

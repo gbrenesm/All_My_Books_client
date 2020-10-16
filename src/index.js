@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+import './styles/home.css';
+import './styles/userHome.css'
 import * as serviceWorker from './serviceWorker';
 import Router from "./router"
 import CtxProvider from "./context"

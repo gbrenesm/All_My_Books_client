@@ -35,7 +35,7 @@ function ShlevesUserHome({shelves, setNewShlef, fetchAllBooks, setBooks}) {
           {!showNewShelf && <button onClick={showForm}><FontAwesomeIcon icon={faPlus}/>&nbsp;&nbsp;Crear nuevo estante</button>}
           {showNewShelf && 
             <form onSubmit={submitShelvesForm}>
-              <label><b>Nombre del estante: </b></label>
+              <label><b>Nombre del estante:</b></label>
               <input required type="text" name="name" id="name" {...nameInput}/>
               <button type="submit">Crear estante</button>
               <button onClick={showForm}>Cancelar</button>

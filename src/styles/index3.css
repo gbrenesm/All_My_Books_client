@@ -1,0 +1,21 @@
+.userhome>div:nth-child(1){
+  width: 20%;
+}
+
+.userhome>div:nth-child(1) h2{
+  font-size: 40px;
+  margin: 0;
+  height: 75px;
+}
+
+.userhome>div:nth-child(1) form label{
+  font-size: 20px;
+}
+
+.userhome>div:nth-child(1) form input{
+  font-size: 16px;
+}
+
+.userhome>div:nth-child(1) form button:nth-child(4){
+  margin: 0 20px 0 0;
+}
